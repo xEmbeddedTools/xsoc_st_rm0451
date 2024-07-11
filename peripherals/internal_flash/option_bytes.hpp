@@ -4,7 +4,7 @@
 
 // hkm
 #include <xmcu/Duration.hpp>
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
@@ -15,10 +15,10 @@ namespace stm32l0 {
 namespace rm0451 {
 namespace peripherals {
 
-class option_bytes : private Non_constructible
+class option_bytes : private non_constructible
 {
 public:
-    class unlocker : private Non_constructible
+    class unlocker : private non_constructible
     {
     public:
         static void unlock();
@@ -27,13 +27,13 @@ public:
         static void lock();
     };
 
-    struct secure_flash : private Non_constructible
+    struct secure_flash : private non_constructible
     {
         static std::uint32_t get_start_address();
         static std::uint32_t get_start_address(Milliseconds a_timeout);
     };
 
-    struct BOR : private Non_constructible
+    struct BOR : private non_constructible
     {
         enum class Level : std::uint8_t
         {
@@ -48,7 +48,7 @@ public:
         static bool set(Level a_level);
         static Level get();
     };
-    struct USER : private Non_constructible
+    struct USER : private non_constructible
     {
         static std::uint32_t get();
     };

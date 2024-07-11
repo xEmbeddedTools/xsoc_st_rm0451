@@ -421,7 +421,7 @@ namespace m0 {
 namespace stm32l0 {
 namespace rm0451 {
 
-template<std::uint32_t id> class rcc<peripherals::LPUART, id> : private Non_constructible
+template<std::uint32_t id> class rcc<peripherals::LPUART, id> : private non_constructible
 {
 public:
     template<typename Source_t> static void enable(bool a_enable_in_lp) = delete;
@@ -455,7 +455,7 @@ peripherals::GPIO::Alternate_function::enable<peripherals::LPUART, 1>(Limited<st
 
 namespace xmcu {
 namespace soc {
-template<> class peripheral<m0::stm32l0::rm0451::peripherals::LPUART, 1u> : private Non_constructible
+template<> class peripheral<m0::stm32l0::rm0451::peripherals::LPUART, 1u> : private non_constructible
 {
 public:
     static m0::stm32l0::rm0451::peripherals::LPUART create()

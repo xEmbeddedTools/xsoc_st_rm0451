@@ -10,7 +10,7 @@
 #include <stm32l0xx.h>
 
 // xmcu
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/soc/ST/m0/stm32l0/rm0451/rcc.hpp>
 #include <xmcu/soc/ST/m0/stm32l0/rm0451/sources/hse.hpp>
@@ -23,10 +23,10 @@ namespace m0 {
 namespace stm32l0 {
 namespace rm0451 {
 namespace system {
-template<std::size_t id> class mcu : private Non_constructible
+template<std::size_t id> class mcu : private non_constructible
 {
 };
-template<> class mcu<1u> : private Non_constructible
+template<> class mcu<1u> : private non_constructible
 {
 public:
     enum class Reset_source : std::uint32_t
@@ -106,13 +106,13 @@ namespace soc {
 namespace m0 {
 namespace stm32l0 {
 namespace rm0451 {
-template<> class rcc<system::mcu<1u>> : private Non_constructible
+template<> class rcc<system::mcu<1u>> : private non_constructible
 {
 public:
-    template<std::size_t id> class hclk : private Non_constructible
+    template<std::size_t id> class hclk : private non_constructible
     {
     };
-    template<std::size_t id> class pclk : private Non_constructible
+    template<std::size_t id> class pclk : private non_constructible
     {
     };
 
@@ -126,7 +126,7 @@ public:
     template<typename Source_t> static void set_wakeup_clock_source() = delete;
 };
 
-template<> class rcc<system::mcu<1u>>::hclk<1u> : private Non_constructible
+template<> class rcc<system::mcu<1u>>::hclk<1u> : private non_constructible
 {
 public:
     enum class Prescaler : std::uint32_t
@@ -149,7 +149,7 @@ public:
     static std::uint32_t get_frequency_Hz();
 };
 
-template<> class rcc<system::mcu<1u>>::pclk<1u> : private Non_constructible
+template<> class rcc<system::mcu<1u>>::pclk<1u> : private non_constructible
 {
 public:
     enum class Prescaler : std::uint32_t
@@ -167,7 +167,7 @@ public:
     static Prescaler get_Prescaler();
     static std::uint32_t get_frequency_Hz();
 };
-template<> class rcc<system::mcu<1u>>::pclk<2u> : private Non_constructible
+template<> class rcc<system::mcu<1u>>::pclk<2u> : private non_constructible
 {
 public:
     enum class Prescaler : std::uint32_t
@@ -186,7 +186,7 @@ public:
     static std::uint32_t get_frequency_Hz();
 };
 
-template<> class rcc<system::mcu<2u>> : private Non_constructible
+template<> class rcc<system::mcu<2u>> : private non_constructible
 {
 public:
     template<typename Source_t> static void set_wakeup_clock_source() = delete;

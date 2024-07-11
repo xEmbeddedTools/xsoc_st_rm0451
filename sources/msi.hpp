@@ -7,7 +7,7 @@
 
 // xmcu
 #include <xmcu/Duration.hpp>
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/bit_flag.hpp>
 
 namespace xmcu {
@@ -16,7 +16,7 @@ namespace m0 {
 namespace stm32l0 {
 namespace rm0451 {
 namespace sources {
-class msi : private Non_constructible
+class msi : private non_constructible
 {
 public:
     enum class Frequency : std::uint32_t

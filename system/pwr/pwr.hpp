@@ -9,7 +9,7 @@
 #include <stm32l0xx.h>
 
 // xmcu
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/m0/stm32l0/rm0451/sources/hsi16.hpp>
 #include <xmcu/soc/ST/m0/stm32l0/rm0451/sources/msi.hpp>
 #include <xmcu/soc/ST/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
@@ -21,11 +21,11 @@ namespace stm32l0 {
 namespace rm0451 {
 namespace system {
 
-template<typename MCU_t> class pwr : private Non_constructible
+template<typename MCU_t> class pwr : private non_constructible
 {
 };
 
-template<> class pwr<mcu<1u>> : private Non_constructible
+template<> class pwr<mcu<1u>> : private non_constructible
 {
 public:
     enum class Voltage_scaling : std::uint32_t
@@ -35,7 +35,7 @@ public:
         _3 = PWR_CR_VOS
     };
 
-    struct stop_mode : private Non_constructible
+    struct stop_mode : private non_constructible
     {
         enum class Type : std::uint32_t
         {
@@ -73,7 +73,7 @@ public:
 
 namespace xmcu::soc::m0::stm32l0::rm0451 {
 
-template<> class rcc<system::pwr<system::mcu<1u>>> : private Non_constructible
+template<> class rcc<system::pwr<system::mcu<1u>>> : private non_constructible
 {
 public:
     static void enable()

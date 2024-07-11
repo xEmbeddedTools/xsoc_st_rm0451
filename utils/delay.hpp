@@ -4,7 +4,7 @@
 
 // xmcu
 #include <xmcu/Duration.hpp>
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 
 namespace xmcu {
 namespace soc {
@@ -13,7 +13,7 @@ namespace stm32l0 {
 namespace rm0451 {
 namespace utils {
 
-class delay : private xmcu::Non_constructible
+class delay : private xmcu::non_constructible
 {
 public:
     static void wait(xmcu::Milliseconds a_time);
