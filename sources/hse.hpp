@@ -9,7 +9,7 @@
 #include <xmcu/Duration.hpp>
 #include <xmcu/Frequency.hpp>
 #include <xmcu/Limited.hpp>
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 
 namespace xmcu {
 namespace soc {
@@ -17,7 +17,7 @@ namespace m0 {
 namespace stm32l0 {
 namespace rm0451 {
 namespace sources {
-class hse : private Non_constructible
+class hse : private non_constructible
 {
 public:
     static void enable();

@@ -426,7 +426,7 @@ namespace xmcu {
 namespace soc {
 
 template<> class peripheral<m0::stm32l0::rm0451::peripherals::LPUART, 1u, m0::stm32l0::rm0451::DMA<>, 1u>
-    : private Non_constructible
+    : private non_constructible
 {
 public:
     static m0::stm32l0::rm0451::DMA<m0::stm32l0::rm0451::peripherals::LPUART> create()
@@ -437,7 +437,7 @@ public:
 };
 
 template<> class peripheral<m0::stm32l0::rm0451::peripherals::USART, 2u, m0::stm32l0::rm0451::DMA<>, 1u>
-    : private Non_constructible
+    : private non_constructible
 {
 public:
     static constexpr m0::stm32l0::rm0451::DMA<m0::stm32l0::rm0451::peripherals::USART> create()

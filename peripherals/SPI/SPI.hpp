@@ -109,7 +109,7 @@ namespace m0 {
 namespace stm32l0 {
 namespace rm0451 {
 
-template<std::uint32_t id> class rcc<peripherals::SPI, id> : private xmcu::Non_constructible
+template<std::uint32_t id> class rcc<peripherals::SPI, id> : private xmcu::non_constructible
 {
 public:
     template<typename Source_t> static void enable(bool a_enable_in_lp) = delete;
@@ -178,7 +178,7 @@ peripherals::GPIO::Alternate_function::enable<peripherals::SPI, 1>(Limited<std::
 
 namespace xmcu {
 namespace soc {
-template<> class peripheral<m0::stm32l0::rm0451::peripherals::SPI, 1u> : private xmcu::Non_constructible
+template<> class peripheral<m0::stm32l0::rm0451::peripherals::SPI, 1u> : private xmcu::non_constructible
 {
 public:
     static m0::stm32l0::rm0451::peripherals::SPI create()
