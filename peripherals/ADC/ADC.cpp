@@ -10,11 +10,11 @@
 
 // xmcu
 #include <xmcu/bit_flag.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/peripherals/ADC/ADC.hpp>
-#include <xmcu/soc/ST/m0/nvic.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/utils/delay.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/ADC/ADC.hpp>
+#include <xmcu/soc/ST/arm/m0/nvic.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/delay.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
 // debug

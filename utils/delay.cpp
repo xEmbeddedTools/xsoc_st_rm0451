@@ -1,15 +1,15 @@
 /**/
 
 // this
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/utils/delay.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/delay.hpp>
 
 // externals
 #include <stm32l0xx.h>
 
 // xmcu
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/rcc.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/rcc.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
 
 // debug
 #include <xmcu/assertion.hpp>

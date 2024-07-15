@@ -10,9 +10,9 @@
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/arm/Systick.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/rcc.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/sources/hsi16.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/rcc.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
 
 namespace xmcu {
 namespace soc {

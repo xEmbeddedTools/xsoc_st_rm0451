@@ -1,13 +1,13 @@
 /**/
 
 // this
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/system/pwr/pwr.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/pwr/pwr.hpp>
 
 // xmcu
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/peripherals/internal_flash/internal_flash.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/rcc.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/internal_flash/internal_flash.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/rcc.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
 
 namespace xmcu {
 namespace soc {

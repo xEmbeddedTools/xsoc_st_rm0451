@@ -14,9 +14,9 @@
 #include <xmcu/Not_null.hpp>
 #include <xmcu/various.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/DMA.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/peripherals/USART/LPUART.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/peripherals/USART/USART.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/DMA.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/USART/LPUART.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/USART/USART.hpp>
 #include <xmcu/soc/peripheral.hpp>
 
 namespace xmcu {

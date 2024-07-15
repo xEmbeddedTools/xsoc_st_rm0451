@@ -12,10 +12,10 @@
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/Not_null.hpp>
 #include <xmcu/bit.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/peripherals/GPIO/GPIO.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/rcc.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/sources/hsi16.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/GPIO/GPIO.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/rcc.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
 
 namespace xmcu {
