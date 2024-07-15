@@ -15,7 +15,7 @@
 #include <xmcu/bit.hpp>
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/various.hpp>
-#include <xmcu/soc/ST/m0/IRQ_config.hpp>
+#include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/m0/stm32l0/rm0451/peripherals/GPIO/GPIO.hpp>
 #include <xmcu/soc/ST/m0/stm32l0/rm0451/rcc.hpp>
 #include <xmcu/soc/ST/m0/stm32l0/rm0451/sources/hsi16.hpp>
