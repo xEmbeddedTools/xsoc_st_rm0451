@@ -13,8 +13,8 @@
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/various.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/defs.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/rcc.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/defs.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/rcc.hpp>
 
 namespace xmcu {
 namespace soc {

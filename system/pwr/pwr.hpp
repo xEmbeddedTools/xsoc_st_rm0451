@@ -10,9 +10,9 @@
 
 // xmcu
 #include <xmcu/non_constructible.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/sources/hsi16.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/sources/msi.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/msi.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
 
 namespace xmcu {
 namespace soc {

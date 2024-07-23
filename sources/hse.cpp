@@ -1,13 +1,13 @@
 /**/
 
 // this
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/sources/hse.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/hse.hpp>
 
 // xmcu
 #include <xmcu/Duration.hpp>
 #include <xmcu/bit_flag.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
 
 namespace {
 constexpr std::uint32_t hse_control_unlock_key = 0xCAFECAFEu;

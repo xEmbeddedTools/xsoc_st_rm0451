@@ -1,13 +1,13 @@
 /**/
 
 // this
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/peripherals/USART/DMA.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/USART/DMA.hpp>
 
 // hkm
 #include <xmcu/soc/Scoped_guard.hpp>
-#include <xmcu/soc/ST/m0/nvic.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/nvic.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
 
 namespace {
 using namespace xmcu;

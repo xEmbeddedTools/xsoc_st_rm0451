@@ -1,7 +1,7 @@
 /**/
 
 // this
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
 
 // debug
 #include <xmcu/assertion.hpp>
