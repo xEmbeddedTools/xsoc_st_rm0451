@@ -16,8 +16,8 @@
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/various.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
-#include <xmcu/soc/ST/m0/nvic.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/defs.hpp>
+#include <xmcu/soc/ST/arm/m0/nvic.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/defs.hpp>
 
 namespace xmcu {
 namespace soc {

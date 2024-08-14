@@ -1,7 +1,7 @@
 /**/
 
 // this
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/peripherals/internal_flash/option_bytes.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/internal_flash/option_bytes.hpp>
 
 // externals
 #include <stm32l0xx.h>
@@ -9,10 +9,10 @@
 // xmcu
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
-#include <xmcu/soc/ST/m0/nvic.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/peripherals/internal_flash/internal_flash.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/nvic.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/internal_flash/internal_flash.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
 
 namespace {
 struct OB_record

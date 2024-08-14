@@ -15,10 +15,10 @@
 #include <xmcu/bit.hpp>
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/various.hpp>
-#include <xmcu/soc/ST/m0/IRQ_config.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/rcc.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/sources/hsi16.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/IRQ_config.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/rcc.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
 
 // debug
@@ -30,7 +30,7 @@ namespace m0 {
 namespace stm32l0 {
 namespace rm0451 {
 namespace peripherals {
-class GPIO : private xmcu::Non_copyable
+class GPIO : private Non_copyable
 {
 public:
     enum class Level : std::uint32_t

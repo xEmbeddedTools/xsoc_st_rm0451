@@ -9,7 +9,7 @@
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/Not_null.hpp>
 #include <xmcu/various.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/peripherals/USART/USART.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/USART/USART.hpp>
 
 namespace xmcu {
 namespace soc {

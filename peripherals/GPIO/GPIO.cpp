@@ -3,9 +3,9 @@
 // xmcu
 #include <xmcu/bit.hpp>
 #include <xmcu/bit_flag.hpp>
-#include <xmcu/soc/ST/m0/IRQ_config.hpp>
-#include <xmcu/soc/ST/m0/nvic.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/peripherals/GPIO/GPIO.hpp>
+#include <xmcu/soc/ST/arm/IRQ_config.hpp>
+#include <xmcu/soc/ST/arm/m0/nvic.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/GPIO/GPIO.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
 // debug

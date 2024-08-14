@@ -1,11 +1,11 @@
 /**/
 
 // this
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/sources/msi.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/msi.hpp>
 
 // xmcu
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
 
 namespace {
 constexpr std::uint32_t msi_frequency_hz_lut[] = { 100_kHz, 200_kHz, 400_kHz, 800_kHz, 1_MHz,  2_MHz,

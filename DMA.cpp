@@ -2,8 +2,8 @@
 
 // xmcu
 #include <xmcu/bit.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/DMA.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/peripherals/USART/DMA.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/DMA.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/USART/DMA.hpp>
 
 namespace {
 using namespace xmcu;

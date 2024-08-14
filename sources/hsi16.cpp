@@ -1,12 +1,12 @@
 /**/
 
 // this
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/hsi16.hpp>
 
 // xmcu
 #include <xmcu/bit_flag.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/m0/stm32l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
 
 namespace xmcu {
 namespace soc {
