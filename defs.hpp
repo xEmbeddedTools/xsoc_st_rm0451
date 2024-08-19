@@ -1,6 +1,9 @@
 #pragma once
 
-/**/
+/*
+ *  Copyright (c) xEmbeddedTools team and contributors.
+ *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
+ */
 
 #if defined(STM32L010x4)
 #define STM32L010XX_CATEGORY 1
