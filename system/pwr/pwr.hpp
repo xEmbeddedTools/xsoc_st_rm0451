@@ -12,6 +12,7 @@
 #include <stm32l0xx.h>
 
 // xmcu
+#include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/hsi16.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/msi.hpp>
@@ -42,7 +43,7 @@ public:
     {
         enum class Type : std::uint32_t
         {
-            stop    = 0,
+            stop = 0,
             standby = PWR_CR_PDDS,
         };
         enum class Method : std::uint32_t
@@ -54,7 +55,7 @@ public:
         enum class Sleeponexit : std::uint32_t
         {
             disabled = 0x0u,
-            enabled  = SCB_SCR_SLEEPONEXIT_Msk
+            enabled = SCB_SCR_SLEEPONEXIT_Msk
         };
 
         static void enter(Type a_type, Method a_method, Sleeponexit a_sleeponexit);
@@ -81,12 +82,12 @@ template<> class rcc<system::pwr<system::mcu<1u>>> : private non_constructible
 public:
     static void enable()
     {
-        bit_flag::set(&RCC->APB1ENR, RCC_APB1ENR_PWREN);
+        bit::flag::set(&RCC->APB1ENR, RCC_APB1ENR_PWREN);
     }
     static void disable()
     {
-        bit_flag::clear(&RCC->APB1ENR, RCC_APB1ENR_PWREN);
+        bit::flag::clear(&RCC->APB1ENR, RCC_APB1ENR_PWREN);
     }
 };
 
-} // namespace xmcu::m0::stm32l0::rm0451
+} // namespace xmcu::soc::m0::stm32l0::rm0451
