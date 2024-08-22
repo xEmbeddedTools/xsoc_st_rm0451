@@ -1,4 +1,7 @@
-/**/
+/*
+ *  Copyright (c) xEmbeddedTools team and contributors.
+ *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
+ */
 
 // this
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/msi.hpp>
