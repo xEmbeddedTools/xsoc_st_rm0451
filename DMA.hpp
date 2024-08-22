@@ -9,12 +9,12 @@
 #include <stm32l0xx.h>
 
 // xmcu
-#include <xmcu/non_constructible.hpp>
 #include <xmcu/Non_copyable.hpp>
-#include <xmcu/bit_flag.hpp>
-#include <xmcu/various.hpp>
+#include <xmcu/bit.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/defs.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/rcc.hpp>
+#include <xmcu/various.hpp>
 
 namespace xmcu {
 namespace soc {
@@ -28,14 +28,14 @@ public:
     enum class Priority : std::uint32_t
     {
         very_high = DMA_CCR_PL_0 | DMA_CCR_PL_1,
-        high      = DMA_CCR_PL_1,
-        medium    = DMA_CCR_PL_0,
-        low       = 0x0u
+        high = DMA_CCR_PL_1,
+        medium = DMA_CCR_PL_0,
+        low = 0x0u
     };
 
     enum class Mode : std::uint32_t
     {
-        single   = 0x0u,
+        single = 0x0u,
         circular = DMA_CCR_CIRC
     };
 
@@ -54,23 +54,23 @@ public:
 
     enum class Event_flag : std::uint32_t
     {
-        none                   = 0x0u,
+        none = 0x0u,
         full_transfer_complete = 0x1u,
         half_transfer_complete = 0x2u,
-        transfer_error         = 0x4u
+        transfer_error = 0x4u
     };
 
     // Hardcoded values from cube - no info about specific numbers in RM/Datasheet
     // TODO: Are they different between l010 family members?
     enum class Request
     {
-        usart2  = 4,
+        usart2 = 4,
         lpuart1 = 5,
     };
 
     struct Result
     {
-        Event_flag event                 = various::get_enum_incorrect_value<Event_flag>();
+        Event_flag event = various::get_enum_incorrect_value<Event_flag>();
         std::size_t data_length_in_words = 0;
     };
     struct Callback
@@ -105,11 +105,11 @@ template<> class rcc<DMA<>, 1> : private xmcu::non_constructible
 public:
     static void enable()
     {
-        bit_flag::set(&(RCC->AHBENR), RCC_AHBENR_DMA1EN);
+        bit::flag::set(&(RCC->AHBENR), RCC_AHBENR_DMA1EN);
     }
     static void disable()
     {
-        bit_flag::clear(&(RCC->AHBENR), RCC_AHBENR_DMA1EN);
+        bit::flag::clear(&(RCC->AHBENR), RCC_AHBENR_DMA1EN);
     }
 };
 

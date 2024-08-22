@@ -2,10 +2,11 @@
 
 /**/
 
-// hkm
+// xmcu
 #include <xmcu/Duration.hpp>
-#include <xmcu/non_constructible.hpp>
 #include <xmcu/Non_copyable.hpp>
+#include <xmcu/bit.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
 namespace xmcu {
@@ -73,7 +74,7 @@ public:
         : unlocked(false)
     {
         m0::stm32l0::rm0451::peripherals::option_bytes::unlocker::unlock();
-        this->unlocked = (false == bit_flag::is(FLASH->PECR, FLASH_PECR_OPTLOCK));
+        this->unlocked = (false == bit::flag::is(FLASH->PECR, FLASH_PECR_OPTLOCK));
     }
 
     Scoped_guard(Milliseconds a_timeout)

@@ -23,8 +23,8 @@ using namespace xmcu::soc::m0::stm32l0::rm0451::peripherals;
 
 void pwr<mcu<1u>>::stop_mode::enter(Type a_type, Method a_method, Sleeponexit a_sleeponexit)
 {
-    bit_flag::set(&PWR->CR, PWR_CR_CWUF | PWR_CR_LPSDSR | PWR_CR_ULP);
-    bit_flag::set(&SCB->SCR, static_cast<std::uint32_t>(a_sleeponexit) | SCB_SCR_SLEEPDEEP_Msk);
+    bit::flag::set(&PWR->CR, PWR_CR_CWUF | PWR_CR_LPSDSR | PWR_CR_ULP);
+    bit::flag::set(&SCB->SCR, static_cast<std::uint32_t>(a_sleeponexit) | SCB_SCR_SLEEPDEEP_Msk);
     switch (a_method)
     {
         case Method::wfe: {
@@ -47,7 +47,7 @@ void pwr<mcu<1u>>::stop_mode::enter(Type a_type, Method a_method, Sleeponexit a_
 
 void pwr<mcu<1u>>::stop_mode::exit()
 {
-    if (0 == bit_flag::is(RCC->CFGR, RCC_CFGR_STOPWUCK))
+    if (0 == bit::flag::is(RCC->CFGR, RCC_CFGR_STOPWUCK))
     {
         rcc<mcu<1u>>::set_system_clock_source<msi>();
     }
@@ -59,19 +59,19 @@ void pwr<mcu<1u>>::stop_mode::exit()
 
 void pwr<mcu<1u>>::set_voltage_scaling(Voltage_scaling a_scaling)
 {
-    bit_flag::set(&(PWR->CR), PWR_CR_VOS, static_cast<std::uint32_t>(a_scaling));
+    bit::flag::set(&(PWR->CR), PWR_CR_VOS, static_cast<std::uint32_t>(a_scaling));
     wait_until::all_bits_are_cleared(PWR->CSR, PWR_CSR_VOSF);
 }
 
 bool pwr<mcu<1u>>::set_voltage_scaling(Voltage_scaling a_scaling, Milliseconds a_timeout)
 {
-    bit_flag::set(&(PWR->CR), PWR_CR_VOS, static_cast<std::uint32_t>(a_scaling));
+    bit::flag::set(&(PWR->CR), PWR_CR_VOS, static_cast<std::uint32_t>(a_scaling));
     return wait_until::all_bits_are_cleared(PWR->CSR, PWR_CSR_VOSF, a_timeout);
 }
 
 pwr<mcu<1u>>::Voltage_scaling pwr<mcu<1u>>::get_voltage_scaling()
 {
-    return static_cast<Voltage_scaling>(bit_flag::get(PWR->CR, PWR_CR_VOS));
+    return static_cast<Voltage_scaling>(bit::flag::get(PWR->CR, PWR_CR_VOS));
 }
 
 } // namespace system

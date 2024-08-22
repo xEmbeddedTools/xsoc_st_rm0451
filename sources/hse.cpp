@@ -5,7 +5,7 @@
 
 // xmcu
 #include <xmcu/Duration.hpp>
-#include <xmcu/bit_flag.hpp>
+#include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
 
@@ -24,7 +24,7 @@ using namespace xmcu::soc::m0::stm32l0::rm0451::utils;
 
 void hse::enable()
 {
-    bit_flag::set(&(RCC->CR), RCC_CR_HSEON);
+    bit::flag::set(&(RCC->CR), RCC_CR_HSEON);
 
     wait_until::all_bits_are_set(RCC->CR, RCC_CR_HSERDY);
 }
@@ -33,7 +33,7 @@ bool hse::enable(Milliseconds a_timeout)
 {
     const std::uint64_t start = tick_counter<Milliseconds>::get();
 
-    bit_flag::set(&(RCC->CR), RCC_CR_HSEON);
+    bit::flag::set(&(RCC->CR), RCC_CR_HSEON);
 
     return wait_until::all_bits_are_set(
         RCC->CR, RCC_CR_HSERDY, a_timeout.get() - (tick_counter<Milliseconds>::get() - start));
@@ -41,7 +41,7 @@ bool hse::enable(Milliseconds a_timeout)
 
 void hse::disable()
 {
-    bit_flag::set(&(RCC->CR), RCC_CR_HSEON);
+    bit::flag::set(&(RCC->CR), RCC_CR_HSEON);
     wait_until::all_bits_are_cleared(RCC->CR, RCC_CR_HSERDY);
 }
 
@@ -49,7 +49,7 @@ bool hse::disable(Milliseconds a_timeout)
 {
     const std::uint64_t start = tick_counter<Milliseconds>::get();
 
-    bit_flag::set(&(RCC->CR), RCC_CR_HSEON);
+    bit::flag::set(&(RCC->CR), RCC_CR_HSEON);
     return wait_until::all_bits_are_cleared(
         RCC->CR, RCC_CR_HSERDY, a_timeout.get() - (tick_counter<Milliseconds>::get() - start));
 }

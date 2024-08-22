@@ -23,15 +23,15 @@ using namespace xmcu::soc::m0::stm32l0::rm0451::utils;
 
 void msi::enable(Frequency a_frequency)
 {
-    bit_flag::clear(&(RCC->CR), RCC_CR_MSION);
+    bit::flag::clear(&(RCC->CR), RCC_CR_MSION);
     wait_until::all_bits_are_cleared(RCC->CR, RCC_CR_MSIRDY);
 
-    bit_flag::set(&(RCC->ICSCR), RCC_ICSCR_MSIRANGE, static_cast<std::uint32_t>(a_frequency));
-    bit_flag::set(&(RCC->CR), RCC_CR_MSION);
+    bit::flag::set(&(RCC->ICSCR), RCC_ICSCR_MSIRANGE, static_cast<std::uint32_t>(a_frequency));
+    bit::flag::set(&(RCC->CR), RCC_CR_MSION);
 
     wait_until::all_bits_are_set(RCC->CR, RCC_CR_MSIRDY);
 
-    bit_flag::clear(&(RCC->ICSCR), RCC_ICSCR_MSITRIM);
+    bit::flag::clear(&(RCC->ICSCR), RCC_ICSCR_MSITRIM);
 
     wait_until::all_bits_are_set(RCC->CR, RCC_CR_MSIRDY);
 }
@@ -40,17 +40,17 @@ bool msi::enable(Frequency a_frequency, Milliseconds a_timeout)
 {
     const std::uint64_t start = tick_counter<Milliseconds>::get();
 
-    bit_flag::clear(&(RCC->CR), RCC_CR_MSION);
+    bit::flag::clear(&(RCC->CR), RCC_CR_MSION);
     if (true == wait_until::all_bits_are_cleared(
                     RCC->CR, RCC_CR_MSIRDY, a_timeout.get() - (tick_counter<Milliseconds>::get() - start)))
     {
-        bit_flag::set(&(RCC->ICSCR), RCC_ICSCR_MSIRANGE, static_cast<std::uint32_t>(a_frequency));
-        bit_flag::set(&(RCC->CR), RCC_CR_MSION);
+        bit::flag::set(&(RCC->ICSCR), RCC_ICSCR_MSIRANGE, static_cast<std::uint32_t>(a_frequency));
+        bit::flag::set(&(RCC->CR), RCC_CR_MSION);
 
         if (true == wait_until::all_bits_are_set(
                         RCC->CR, RCC_CR_MSIRDY, a_timeout.get() - (tick_counter<Milliseconds>::get() - start)))
         {
-            bit_flag::clear(&(RCC->ICSCR), RCC_ICSCR_MSITRIM);
+            bit::flag::clear(&(RCC->ICSCR), RCC_ICSCR_MSITRIM);
 
             return wait_until::all_bits_are_set(
                 RCC->CR, RCC_CR_MSIRDY, a_timeout.get() - (tick_counter<Milliseconds>::get() - start));
@@ -62,7 +62,7 @@ bool msi::enable(Frequency a_frequency, Milliseconds a_timeout)
 
 void msi::disable()
 {
-    bit_flag::clear(&(RCC->CR), RCC_CR_MSION);
+    bit::flag::clear(&(RCC->CR), RCC_CR_MSION);
     wait_until::all_bits_are_cleared(RCC->CR, RCC_CR_MSIRDY);
 }
 
@@ -70,7 +70,7 @@ bool msi::disable(Milliseconds a_timeout)
 {
     const std::uint64_t start = tick_counter<Milliseconds>::get();
 
-    bit_flag::clear(&(RCC->CR), RCC_CR_MSION);
+    bit::flag::clear(&(RCC->CR), RCC_CR_MSION);
     return wait_until::all_bits_are_cleared(
         RCC->CR, RCC_CR_MSIRDY, a_timeout.get() - (tick_counter<Milliseconds>::get() - start));
 }
@@ -79,7 +79,7 @@ std::uint32_t msi::get_frequency_Hz()
 {
     if (true == is_enabled())
     {
-        return msi_frequency_hz_lut[bit_flag::get(RCC->ICSCR, RCC_ICSCR_MSIRANGE) >> RCC_ICSCR_MSIRANGE_Pos];
+        return msi_frequency_hz_lut[bit::flag::get(RCC->ICSCR, RCC_ICSCR_MSIRANGE) >> RCC_ICSCR_MSIRANGE_Pos];
     }
 
     return 0u;

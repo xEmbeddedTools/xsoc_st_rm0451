@@ -7,12 +7,12 @@
 #include <stm32l0xx.h>
 
 // xmcu
-#include <xmcu/bit_flag.hpp>
-#include <xmcu/soc/Scoped_guard.hpp>
+#include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/m0/nvic.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/internal_flash/internal_flash.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/Scoped_guard.hpp>
 
 namespace {
 struct OB_record
@@ -60,7 +60,7 @@ void option_bytes::reload()
 
         if (true == ob_guard.is_unlocked())
         {
-            bit_flag::set(&FLASH->PECR, FLASH_PECR_OBL_LAUNCH);
+            bit::flag::set(&FLASH->PECR, FLASH_PECR_OBL_LAUNCH);
         }
     }
 }
@@ -68,10 +68,10 @@ void option_bytes::reload()
 void option_bytes::unlocker::unlock()
 {
     wait_until::all_bits_are_cleared(FLASH->SR, FLASH_SR_BSY);
-    if (true == bit_flag::is(FLASH->PECR, FLASH_PECR_OPTLOCK))
+    if (true == bit::flag::is(FLASH->PECR, FLASH_PECR_OPTLOCK))
     {
         Scoped_guard<nvic> interrupt_guard;
-        if (true == bit_flag::is(FLASH->PECR, FLASH_PECR_PELOCK))
+        if (true == bit::flag::is(FLASH->PECR, FLASH_PECR_PELOCK))
         {
             FLASH->PEKEYR = 0x89ABCDEFu;
             FLASH->PEKEYR = 0x02030405u;
@@ -89,10 +89,10 @@ bool option_bytes::unlocker::unlock(Milliseconds a_timeout)
         return false;
     }
 
-    if (true == bit_flag::is(FLASH->PECR, FLASH_PECR_OPTLOCK))
+    if (true == bit::flag::is(FLASH->PECR, FLASH_PECR_OPTLOCK))
     {
         Scoped_guard<nvic> interrupt_guard;
-        if (true == bit_flag::is(FLASH->PECR, FLASH_PECR_PELOCK))
+        if (true == bit::flag::is(FLASH->PECR, FLASH_PECR_PELOCK))
         {
             FLASH->PEKEYR = 0x89ABCDEFu;
             FLASH->PEKEYR = 0x02030405u;
@@ -106,7 +106,7 @@ bool option_bytes::unlocker::unlock(Milliseconds a_timeout)
 }
 void option_bytes::unlocker::lock()
 {
-    bit_flag::set(&(FLASH->PECR), FLASH_PECR_OPTLOCK);
+    bit::flag::set(&(FLASH->PECR), FLASH_PECR_OPTLOCK);
 }
 
 bool option_bytes::BOR::set(Level a_level)
@@ -120,7 +120,7 @@ bool option_bytes::BOR::set(Level a_level)
         if (true == ob_guard.is_unlocked())
         {
             OB_record record_slot_1 = *(reinterpret_cast<OB_record*>(OB_BASE_ADDRESS_SLOT_1));
-            bit_flag::set(&record_slot_1.entries.byte_0, 0xFu, static_cast<std::uint8_t>(a_level));
+            bit::flag::set(&record_slot_1.entries.byte_0, 0xFu, static_cast<std::uint8_t>(a_level));
             record_slot_1.entries.complemented_byte_0 = static_cast<std::uint8_t>(~(record_slot_1.entries.byte_0));
 
             (reinterpret_cast<OB_record*>(OB_BASE_ADDRESS_SLOT_1))->word = record_slot_1.word;
@@ -136,13 +136,13 @@ bool option_bytes::BOR::set(Level a_level)
 option_bytes::BOR::Level option_bytes::BOR::get()
 {
     Scoped_guard<internal_flash::unlocker> flash_guard;
-    return static_cast<Level>(bit_flag::get(FLASH->OPTR, FLASH_OPTR_BOR_LEV) >> FLASH_OPTR_BOR_LEV_Pos);
+    return static_cast<Level>(bit::flag::get(FLASH->OPTR, FLASH_OPTR_BOR_LEV) >> FLASH_OPTR_BOR_LEV_Pos);
 }
 
 std::uint32_t option_bytes::USER::get()
 {
     Scoped_guard<internal_flash::unlocker> flash_guard;
-    return bit_flag::get(FLASH->OPTR, FLASH_OPTR_nRST_STOP | FLASH_OPTR_nRST_STDBY | FLASH_OPTR_IWDG_SW);
+    return bit::flag::get(FLASH->OPTR, FLASH_OPTR_nRST_STOP | FLASH_OPTR_nRST_STDBY | FLASH_OPTR_IWDG_SW);
 }
 } // namespace peripherals
 } // namespace rm0451

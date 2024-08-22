@@ -13,15 +13,15 @@
 
 // hkm
 #include <xmcu/Duration.hpp>
-#include <xmcu/non_constructible.hpp>
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/Not_null.hpp>
-#include <xmcu/bit_flag.hpp>
-#include <xmcu/various.hpp>
+#include <xmcu/bit.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/rcc.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
+#include <xmcu/various.hpp>
 
 namespace xmcu {
 namespace soc {
@@ -40,14 +40,14 @@ public:
 
     enum class Mode : std::uint32_t
     {
-        single        = 0x0u,
-        continuous    = ADC_CFGR1_CONT,
+        single = 0x0u,
+        continuous = ADC_CFGR1_CONT,
         discontinuous = ADC_CFGR1_DISCEN
     };
     enum class Resolution : std::uint32_t
     {
-        _6_bit  = ADC_CFGR1_RES_1 | ADC_CFGR1_RES_0,
-        _8_bit  = ADC_CFGR1_RES_1,
+        _6_bit = ADC_CFGR1_RES_1 | ADC_CFGR1_RES_0,
+        _8_bit = ADC_CFGR1_RES_1,
         _10_bit = ADC_CFGR1_RES_0,
         _12_bit = 0u,
     };
@@ -113,9 +113,7 @@ public:
 
         void read(Not_null<std::uint16_t*> a_p_buffer, std::size_t a_buffer_capacity);
 
-        bool read(Not_null<std::uint16_t*> a_p_buffer,
-                  std::size_t a_buffer_capacity,
-                  Milliseconds a_timeout);
+        bool read(Not_null<std::uint16_t*> a_p_buffer, std::size_t a_buffer_capacity, Milliseconds a_timeout);
 
     private:
         ADC* p_ADC;
@@ -143,7 +141,7 @@ public:
         void enable(const IRQ_config& a_irq_config);
         void disable();
 
-        template<Mode mode> void read_start(const Callback& a_callback)                           = delete;
+        template<Mode mode> void read_start(const Callback& a_callback) = delete;
         template<Mode mode> void read_start(const Callback& a_callback, std::size_t a_group_size) = delete;
         void read_stop();
 
@@ -157,7 +155,7 @@ public:
         friend ADC;
     };
 
-    ADC(ADC&&)            = default;
+    ADC(ADC&&) = default;
     ADC& operator=(ADC&&) = default;
 
     ADC()
@@ -165,7 +163,7 @@ public:
         , p_registers(nullptr)
         , irqn(static_cast<IRQn_Type>(std::numeric_limits<std::uint32_t>::max()))
     {
-        this->polling.p_ADC   = nullptr;
+        this->polling.p_ADC = nullptr;
         this->interrupt.p_ADC = nullptr;
     }
     ~ADC()
@@ -176,8 +174,9 @@ public:
         }
     }
 
-    template<std::size_t length> void
-    enable(Resolution a_resolution, const std::array<Channel::Id, length>& a_channels, Channel::Sampling_time a_sampling_time)
+    template<std::size_t length> void enable(Resolution a_resolution,
+                                             const std::array<Channel::Id, length>& a_channels,
+                                             Channel::Sampling_time a_sampling_time)
     {
         this->enable(a_resolution, a_channels.data(), a_channels.size(), a_sampling_time);
     }
@@ -202,7 +201,7 @@ public:
 
     bool is_enabled() const
     {
-        return ADC_CR_ADEN == bit_flag::get(this->p_registers->CR, ADC_CR_ADEN | ADC_CR_ADDIS);
+        return ADC_CR_ADEN == bit::flag::get(this->p_registers->CR, ADC_CR_ADEN | ADC_CR_ADDIS);
     }
 
     bool is_created() const
@@ -229,7 +228,7 @@ private:
         , p_registers(a_p_registers)
         , irqn(a_irqn)
     {
-        this->polling.p_ADC   = this;
+        this->polling.p_ADC = this;
         this->interrupt.p_ADC = this;
     }
 
@@ -291,9 +290,9 @@ public:
 
         static void disable()
         {
-            bit_flag::clear(&ADC1->CFGR2, ADC_CFGR2_CKMODE_Msk);
-            bit_flag::clear(&ADC1_COMMON->CCR, ADC_CCR_PRESC_Msk);
-            bit_flag::clear(&RCC->APB2ENR, RCC_APB2ENR_ADCEN);
+            bit::flag::clear(&ADC1->CFGR2, ADC_CFGR2_CKMODE_Msk);
+            bit::flag::clear(&ADC1_COMMON->CCR, ADC_CCR_PRESC_Msk);
+            bit::flag::clear(&RCC->APB2ENR, RCC_APB2ENR_ADCEN);
         }
     };
 
@@ -301,16 +300,16 @@ public:
     {
         enum class Prescaler : std::uint32_t
         {
-            _1   = 0x0u,
-            _2   = ADC_CCR_PRESC_0,
-            _4   = ADC_CCR_PRESC_1,
-            _6   = ADC_CCR_PRESC_0 | ADC_CCR_PRESC_1,
-            _8   = ADC_CCR_PRESC_2,
-            _10  = ADC_CCR_PRESC_0 | ADC_CCR_PRESC_2,
-            _12  = ADC_CCR_PRESC_1 | ADC_CCR_PRESC_2,
-            _16  = ADC_CCR_PRESC_0 | ADC_CCR_PRESC_1 | ADC_CCR_PRESC_2,
-            _32  = ADC_CCR_PRESC_3,
-            _64  = ADC_CCR_PRESC_0 | ADC_CCR_PRESC_3,
+            _1 = 0x0u,
+            _2 = ADC_CCR_PRESC_0,
+            _4 = ADC_CCR_PRESC_1,
+            _6 = ADC_CCR_PRESC_0 | ADC_CCR_PRESC_1,
+            _8 = ADC_CCR_PRESC_2,
+            _10 = ADC_CCR_PRESC_0 | ADC_CCR_PRESC_2,
+            _12 = ADC_CCR_PRESC_1 | ADC_CCR_PRESC_2,
+            _16 = ADC_CCR_PRESC_0 | ADC_CCR_PRESC_1 | ADC_CCR_PRESC_2,
+            _32 = ADC_CCR_PRESC_3,
+            _64 = ADC_CCR_PRESC_0 | ADC_CCR_PRESC_3,
             _128 = ADC_CCR_PRESC_1 | ADC_CCR_PRESC_3,
             _256 = ADC_CCR_PRESC_0 | ADC_CCR_PRESC_1 | ADC_CCR_PRESC_3
         };
@@ -319,8 +318,8 @@ public:
 
         static void disable()
         {
-            bit_flag::clear(&(ADC1_COMMON->CCR), ADC_CFGR2_CKMODE_Msk | ADC_CCR_PRESC_Msk);
-            bit_flag::clear(&(RCC->APB2ENR), RCC_APB2ENR_ADCEN);
+            bit::flag::clear(&(ADC1_COMMON->CCR), ADC_CFGR2_CKMODE_Msk | ADC_CCR_PRESC_Msk);
+            bit::flag::clear(&(RCC->APB2ENR), RCC_APB2ENR_ADCEN);
         }
     };
 };

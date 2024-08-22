@@ -8,16 +8,17 @@
 // externals
 #include <stm32l0xx.h>
 
-// hkm
+// xmcu
 #include <xmcu/Duration.hpp>
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/Not_null.hpp>
-#include <xmcu/various.hpp>
+#include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/DMA.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/USART/LPUART.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/USART/USART.hpp>
 #include <xmcu/soc/peripheral.hpp>
+#include <xmcu/various.hpp>
 
 namespace xmcu {
 namespace soc {
@@ -48,7 +49,7 @@ public:
 
             void stop()
             {
-                bit_flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
+                bit::flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
             }
 
         private:

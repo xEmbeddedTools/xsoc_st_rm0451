@@ -23,7 +23,7 @@ DMA<>::Event_flag get_Event_flag_and_clear(DMA_TypeDef* a_p_DMA_registers,
     {
         bit::set(&(a_p_DMA_registers->IFCR), DMA_IFCR_CTCIF1_Pos + channel_offset);
 
-        if (true == bit_flag::is(a_p_channel_registers->CCR, DMA_CCR_TCIE))
+        if (true == bit::flag::is(a_p_channel_registers->CCR, DMA_CCR_TCIE))
         {
             ret |= DMA<>::Event_flag::full_transfer_complete;
         }
@@ -33,7 +33,7 @@ DMA<>::Event_flag get_Event_flag_and_clear(DMA_TypeDef* a_p_DMA_registers,
     {
         bit::set(&(a_p_DMA_registers->IFCR), DMA_IFCR_CHTIF1_Pos + channel_offset);
 
-        if (true == bit_flag::is(a_p_channel_registers->CCR, DMA_CCR_HTIE))
+        if (true == bit::flag::is(a_p_channel_registers->CCR, DMA_CCR_HTIE))
         {
             ret |= DMA<>::Event_flag::half_transfer_complete;
         }
@@ -43,7 +43,7 @@ DMA<>::Event_flag get_Event_flag_and_clear(DMA_TypeDef* a_p_DMA_registers,
     {
         bit::set(&(a_p_DMA_registers->IFCR), DMA_IFCR_CTEIF1_Pos + channel_offset);
 
-        if (true == bit_flag::is(a_p_channel_registers->CCR, DMA_CCR_TEIE))
+        if (true == bit::flag::is(a_p_channel_registers->CCR, DMA_CCR_TEIE))
         {
             ret |= DMA<>::Event_flag::transfer_error;
         }
