@@ -16,7 +16,6 @@
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/bit.hpp>
-#include <xmcu/bit_flag.hpp>
 #include <xmcu/various.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/GPIO/gpio_ll.hpp>

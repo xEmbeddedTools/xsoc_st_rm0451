@@ -11,13 +11,13 @@
 // hkm
 #include <xmcu/Duration.hpp>
 #include <xmcu/Non_copyable.hpp>
-#include <xmcu/bit_flag.hpp>
-#include <xmcu/various.hpp>
+#include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/rcc.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/hsi16.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
+#include <xmcu/various.hpp>
 
 namespace xmcu {
 namespace soc {
@@ -34,17 +34,17 @@ public:
         enum class Mode : std::uint32_t
         {
             continuous = LPTIM_CR_CNTSTRT,
-            one_pulse  = LPTIM_CR_SNGSTRT
+            one_pulse = LPTIM_CR_SNGSTRT
         };
         enum class Prescaler : std::uint32_t
         {
-            _1   = 0x0u,
-            _2   = LPTIM_CFGR_PRESC_0,
-            _4   = LPTIM_CFGR_PRESC_1,
-            _8   = LPTIM_CFGR_PRESC_0 | LPTIM_CFGR_PRESC_1,
-            _16  = LPTIM_CFGR_PRESC_2,
-            _32  = LPTIM_CFGR_PRESC_0 | LPTIM_CFGR_PRESC_2,
-            _64  = LPTIM_CFGR_PRESC_1 | LPTIM_CFGR_PRESC_2,
+            _1 = 0x0u,
+            _2 = LPTIM_CFGR_PRESC_0,
+            _4 = LPTIM_CFGR_PRESC_1,
+            _8 = LPTIM_CFGR_PRESC_0 | LPTIM_CFGR_PRESC_1,
+            _16 = LPTIM_CFGR_PRESC_2,
+            _32 = LPTIM_CFGR_PRESC_0 | LPTIM_CFGR_PRESC_2,
+            _64 = LPTIM_CFGR_PRESC_1 | LPTIM_CFGR_PRESC_2,
             _128 = LPTIM_CFGR_PRESC_0 | LPTIM_CFGR_PRESC_1 | LPTIM_CFGR_PRESC_2,
         };
 
@@ -99,7 +99,7 @@ public:
         friend LPTIM;
     };
 
-    LPTIM(LPTIM&&)            = default;
+    LPTIM(LPTIM&&) = default;
     LPTIM& operator=(LPTIM&&) = default;
 
     LPTIM()
@@ -107,8 +107,8 @@ public:
         , p_registers(nullptr)
         , irqn(static_cast<IRQn_Type>(std::numeric_limits<std::uint32_t>::max()))
     {
-        this->tick_counter.p_LPTIM           = nullptr;
-        this->tick_counter.polling.p_LPTIM   = nullptr;
+        this->tick_counter.p_LPTIM = nullptr;
+        this->tick_counter.polling.p_LPTIM = nullptr;
         this->tick_counter.interrupt.p_LPTIM = nullptr;
     }
     ~LPTIM()
@@ -123,7 +123,7 @@ public:
 
     bool is_enabled() const
     {
-        return bit_flag::is(this->p_registers->CR, LPTIM_CR_ENABLE);
+        return bit::flag::is(this->p_registers->CR, LPTIM_CR_ENABLE);
     }
 
     operator LPTIM_TypeDef*()
@@ -144,8 +144,8 @@ private:
         , p_registers(a_p_registers)
         , irqn(a_irqn)
     {
-        this->tick_counter.p_LPTIM           = this;
-        this->tick_counter.polling.p_LPTIM   = this;
+        this->tick_counter.p_LPTIM = this;
+        this->tick_counter.polling.p_LPTIM = this;
         this->tick_counter.interrupt.p_LPTIM = this;
     }
 
@@ -175,7 +175,7 @@ template<std::uint32_t id> class rcc<peripherals::LPTIM, id> : private xmcu::non
 {
 public:
     template<typename Source_t> static void enable(bool a_enable_in_lp) = delete;
-    static void disable()                                               = delete;
+    static void disable() = delete;
 };
 
 template<> template<> void rcc<peripherals::LPTIM, 1>::enable<rcc<system::mcu<1u>>::pclk<1u>>(bool a_enable_in_lp);

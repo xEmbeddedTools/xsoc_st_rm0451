@@ -13,8 +13,8 @@
 #include <stm32l0xx.h>
 
 // xmcu
+#include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
-#include <xmcu/bit_flag.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/rcc.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/hse.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/hsi16.hpp>
@@ -34,19 +34,19 @@ template<> class mcu<1u> : private non_constructible
 public:
     enum class Reset_source : std::uint32_t
     {
-        low_power                   = RCC_CSR_LPWRRSTF,
-        window_watchdog             = RCC_CSR_WWDGRSTF,
+        low_power = RCC_CSR_LPWRRSTF,
+        window_watchdog = RCC_CSR_WWDGRSTF,
         independent_window_watchdog = RCC_CSR_IWDGRSTF,
-        software                    = RCC_CSR_SFTRSTF,
-        power_on                    = RCC_CSR_PORRSTF,
-        pin                         = RCC_CSR_PINRSTF,
-        option_byte                 = RCC_CSR_OBLRSTF
+        software = RCC_CSR_SFTRSTF,
+        power_on = RCC_CSR_PORRSTF,
+        pin = RCC_CSR_PINRSTF,
+        option_byte = RCC_CSR_OBLRSTF
     };
 
     struct Id
     {
         std::uint8_t serial_number[12] = { 0 };
-        std::uint32_t type             = 0;
+        std::uint32_t type = 0;
     };
 
     static void halt()
@@ -119,9 +119,9 @@ public:
     {
     };
 
-    template<typename Source_t> static void set_system_clock_source()                               = delete;
+    template<typename Source_t> static void set_system_clock_source() = delete;
     template<typename Source_t> static bool set_system_clock_source(Milliseconds a_timeout) = delete;
-    static bool set_system_clock_source(Milliseconds a_timeout)                             = delete;
+    static bool set_system_clock_source(Milliseconds a_timeout) = delete;
 
     template<typename Source_t> static bool is_system_clock_source() = delete;
     static std::uint32_t get_system_clock_frequency_Hz();
@@ -134,12 +134,12 @@ template<> class rcc<system::mcu<1u>>::hclk<1u> : private non_constructible
 public:
     enum class Prescaler : std::uint32_t
     {
-        _1   = RCC_CFGR_HPRE_DIV1,
-        _2   = RCC_CFGR_HPRE_DIV2,
-        _4   = RCC_CFGR_HPRE_DIV4,
-        _8   = RCC_CFGR_HPRE_DIV8,
-        _16  = RCC_CFGR_HPRE_DIV16,
-        _64  = RCC_CFGR_HPRE_DIV64,
+        _1 = RCC_CFGR_HPRE_DIV1,
+        _2 = RCC_CFGR_HPRE_DIV2,
+        _4 = RCC_CFGR_HPRE_DIV4,
+        _8 = RCC_CFGR_HPRE_DIV8,
+        _16 = RCC_CFGR_HPRE_DIV16,
+        _64 = RCC_CFGR_HPRE_DIV64,
         _128 = RCC_CFGR_HPRE_DIV128,
         _256 = RCC_CFGR_HPRE_DIV256,
         _512 = RCC_CFGR_HPRE_DIV512,
@@ -157,10 +157,10 @@ template<> class rcc<system::mcu<1u>>::pclk<1u> : private non_constructible
 public:
     enum class Prescaler : std::uint32_t
     {
-        _1  = 0x0u,
-        _2  = RCC_CFGR_PPRE1_2,
-        _4  = RCC_CFGR_PPRE1_0 | RCC_CFGR_PPRE1_2,
-        _8  = RCC_CFGR_PPRE1_1 | RCC_CFGR_PPRE1_2,
+        _1 = 0x0u,
+        _2 = RCC_CFGR_PPRE1_2,
+        _4 = RCC_CFGR_PPRE1_0 | RCC_CFGR_PPRE1_2,
+        _8 = RCC_CFGR_PPRE1_1 | RCC_CFGR_PPRE1_2,
         _16 = RCC_CFGR_PPRE1_0 | RCC_CFGR_PPRE1_1 | RCC_CFGR_PPRE1_2,
     };
 
@@ -175,10 +175,10 @@ template<> class rcc<system::mcu<1u>>::pclk<2u> : private non_constructible
 public:
     enum class Prescaler : std::uint32_t
     {
-        _1  = 0x0u,
-        _2  = RCC_CFGR_PPRE2_2,
-        _4  = RCC_CFGR_PPRE2_0 | RCC_CFGR_PPRE2_2,
-        _8  = RCC_CFGR_PPRE2_1 | RCC_CFGR_PPRE2_2,
+        _1 = 0x0u,
+        _2 = RCC_CFGR_PPRE2_2,
+        _4 = RCC_CFGR_PPRE2_0 | RCC_CFGR_PPRE2_2,
+        _8 = RCC_CFGR_PPRE2_1 | RCC_CFGR_PPRE2_2,
         _16 = RCC_CFGR_PPRE2_0 | RCC_CFGR_PPRE2_1 | RCC_CFGR_PPRE2_2,
     };
 
