@@ -455,7 +455,7 @@ public:
     Alternate_function alternate_function;
 
 private:
-    GPIO(std::uint32_t a_idx, ll::gpio::Port *a_p_registers)//GPIO_TypeDef* a_p_registers)
+    GPIO(std::uint32_t a_idx, ll::gpio::Port *a_p_registers)
         : out(this)
         , in(this)
         , analog(this)
