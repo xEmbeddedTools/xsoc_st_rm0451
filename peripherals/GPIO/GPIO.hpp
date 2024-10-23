@@ -13,16 +13,16 @@
 
 // xmcu
 #include <xmcu/Limited.hpp>
-#include <xmcu/non_constructible.hpp>
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/bit.hpp>
-#include <xmcu/various.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/GPIO/gpio_ll.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/rcc.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/hsi16.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
+#include <xmcu/various.hpp>
 
 // debug
 #include <xmcu/assertion.hpp>
@@ -38,29 +38,29 @@ class GPIO : private Non_copyable
 public:
     enum class Level : std::uint32_t
     {
-        low  = 0x0u,
+        low = 0x0u,
         high = 0x1u
     };
 
     enum class Type : std::uint32_t
     {
-        push_pull  = 0x0u,
-        open_drain = 0x1u,
+        push_pull = static_cast<std::uint32_t>(ll::gpio::OTYPER::push_pull),
+        open_drain = static_cast<std::uint32_t>(ll::gpio::OTYPER::open_drain),
     };
 
     enum class Pull : std::uint32_t
     {
-        none = 0x0u,
-        up   = 0x1u,
-        down = 0x2u,
+        none = static_cast<std::uint32_t>(ll::gpio::PUPDR::none),
+        up = static_cast<std::uint32_t>(ll::gpio::PUPDR::pull_up),
+        down = static_cast<std::uint32_t>(ll::gpio::PUPDR::pull_down),
     };
 
     enum class Speed : std::uint32_t
     {
-        low    = 0x0u,
-        medium = 0x1u,
-        high   = 0x2u,
-        ultra  = 0x3u,
+        low = static_cast<std::uint32_t>(ll::gpio::OSPEEDR::low),
+        medium = static_cast<std::uint32_t>(ll::gpio::OSPEEDR::medium),
+        high = static_cast<std::uint32_t>(ll::gpio::OSPEEDR::high),
+        ultra = static_cast<std::uint32_t>(ll::gpio::OSPEEDR::ultra),
     };
 
     class Out : private xmcu::Non_copyable
@@ -68,8 +68,8 @@ public:
     public:
         struct Enable_config
         {
-            Type type   = various::get_enum_incorrect_value<Type>();
-            Pull pull   = various::get_enum_incorrect_value<Pull>();
+            Type type = various::get_enum_incorrect_value<Type>();
+            Pull pull = various::get_enum_incorrect_value<Pull>();
             Speed speed = various::get_enum_incorrect_value<Speed>();
         };
 
@@ -110,9 +110,7 @@ public:
             friend Out;
         };
 
-        void enable(Limited<std::uint32_t, 0, 15> a_id,
-                    const Enable_config& a_enable_config,
-                    Pin* a_p_pin = nullptr);
+        void enable(Limited<std::uint32_t, 0, 15> a_id, const Enable_config& a_enable_config, Pin* a_p_pin = nullptr);
         void disable(Limited<std::uint32_t, 0, 15> a_id);
         void disable(Pin* p_pin);
 
@@ -223,8 +221,8 @@ public:
     public:
         struct Enable_config
         {
-            Type type   = various::get_enum_incorrect_value<Type>();
-            Pull pull   = various::get_enum_incorrect_value<Pull>();
+            Type type = various::get_enum_incorrect_value<Type>();
+            Pull pull = various::get_enum_incorrect_value<Pull>();
             Speed speed = various::get_enum_incorrect_value<Speed>();
         };
 
@@ -267,10 +265,8 @@ public:
             friend Alternate_function;
         };
 
-        template<typename Periph_t, std::uint32_t periph_id = std::numeric_limits<std::uint32_t>::max()>
-        void enable(Limited<std::uint32_t, 0, 15>,
-                    const Enable_config& a_enable_config,
-                    Pin* a_p_pin = nullptr) = delete;
+        template<typename Periph_t, std::uint32_t periph_id = std::numeric_limits<std::uint32_t>::max()> void
+        enable(Limited<std::uint32_t, 0, 15>, const Enable_config& a_enable_config, Pin* a_p_pin = nullptr) = delete;
         void disable(Limited<std::uint32_t, 0, 15> a_id);
         void disable(Pin* p_pin);
 
@@ -306,7 +302,7 @@ public:
 
         enum class Trigger_flag : std::uint32_t
         {
-            rising  = 0x1,
+            rising = 0x1,
             falling = 0x2,
         };
 
@@ -325,7 +321,7 @@ public:
             void* p_user_data = nullptr;
         };
 
-        Interrupt(Interrupt&&)            = default;
+        Interrupt(Interrupt&&) = default;
         Interrupt& operator=(Interrupt&&) = default;
 
         Interrupt()
@@ -382,10 +378,10 @@ public:
     {
         enum class Divider : std::uint32_t
         {
-            _1  = 0x0u,
-            _2  = RCC_CFGR_MCOPRE_0,
-            _4  = RCC_CFGR_MCOPRE_1,
-            _8  = RCC_CFGR_MCOPRE_0 | RCC_CFGR_MCOPRE_1,
+            _1 = 0x0u,
+            _2 = RCC_CFGR_MCOPRE_0,
+            _4 = RCC_CFGR_MCOPRE_1,
+            _8 = RCC_CFGR_MCOPRE_0 | RCC_CFGR_MCOPRE_1,
             _16 = RCC_CFGR_MCOPRE_2
         };
 
@@ -444,7 +440,7 @@ public:
         return std::numeric_limits<decltype(this->idx)>::max() != this->idx && nullptr != this->p_registers;
     }
 
-    explicit operator ll::gpio::Port*()
+    explicit operator ll::gpio::Registers*()
     {
         return this->p_registers;
     }
@@ -455,7 +451,7 @@ public:
     Alternate_function alternate_function;
 
 private:
-    GPIO(std::uint32_t a_idx, ll::gpio::Port *a_p_registers)
+    GPIO(std::uint32_t a_idx, ll::gpio::Registers* a_p_registers)
         : out(this)
         , in(this)
         , analog(this)
@@ -477,7 +473,7 @@ private:
     }
 
     std::uint32_t idx;
-    ll::gpio::Port *p_registers;
+    ll::gpio::Registers* p_registers;
 
     std::uint32_t flags;
 
@@ -527,7 +523,7 @@ template<std::uint32_t id> class rcc<peripherals::GPIO, id> : private xmcu::non_
 {
 public:
     static void enable(bool a_enable_in_lp) = delete;
-    static void disable()                   = delete;
+    static void disable() = delete;
 };
 
 template<> void rcc<peripherals::GPIO, 1>::enable(bool a_enable_in_lp);
@@ -572,7 +568,7 @@ public:
     static m0::stm32l0::rm0451::peripherals::GPIO create()
     {
         namespace l0_peripherals = m0::stm32l0::rm0451::peripherals;
-        return l0_peripherals::GPIO(0u, l0_peripherals::ll::gpio::port<l0_peripherals::ll::gpio::A>());
+        return l0_peripherals::GPIO(0u, l0_peripherals::ll::gpio::registers<l0_peripherals::ll::gpio::A>());
     }
 };
 #endif
@@ -584,7 +580,7 @@ public:
     static m0::stm32l0::rm0451::peripherals::GPIO create()
     {
         namespace l0_peripherals = m0::stm32l0::rm0451::peripherals;
-        return l0_peripherals::GPIO(1u, l0_peripherals::ll::gpio::port<l0_peripherals::ll::gpio::B>());
+        return l0_peripherals::GPIO(1u, l0_peripherals::ll::gpio::registers<l0_peripherals::ll::gpio::B>());
     }
 };
 #endif
@@ -596,22 +592,9 @@ public:
     static m0::stm32l0::rm0451::peripherals::GPIO create()
     {
         namespace l0_peripherals = m0::stm32l0::rm0451::peripherals;
-        return l0_peripherals::GPIO(2u, l0_peripherals::ll::gpio::port<l0_peripherals::ll::gpio::C>());
+        return l0_peripherals::GPIO(2u, l0_peripherals::ll::gpio::registers<l0_peripherals::ll::gpio::C>());
     }
 };
 #endif
-
-#if defined(XMCU_GPIOH_PRESENT)
-template<> class peripheral<m0::stm32l0::rm0451::peripherals::GPIO, 8u> : private xmcu::non_constructible
-{
-public:
-    static m0::stm32l0::rm0451::peripherals::GPIO create()
-    {
-        namespace l0_peripherals = m0::stm32l0::rm0451::peripherals;
-        return l0_peripherals::GPIO(7u, l0_peripherals::ll::gpio::port<l0_peripherals::ll::gpio::H>());
-    }
-};
-#endif
-
 } // namespace soc
 } // namespace xmcu
