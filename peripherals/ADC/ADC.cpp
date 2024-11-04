@@ -12,9 +12,9 @@
 // - Only global sampling rate setting
 
 // xmcu
-#include <xmcu/bit_flag.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/ADC/ADC.hpp>
+#include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/m0/nvic.hpp>
+#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/ADC/ADC.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/delay.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
@@ -52,25 +52,25 @@ void polling_read_setup(ADC_TypeDef* a_p_registers, ADC::Mode a_mode, std::size_
                ADC::Mode::discontinuous != a_mode);
 
     // Errata ES0483 2.4.2 - disable ADC while configuring CFGR1 to prefent RES being cleared
-    bit_flag::set(&(a_p_registers->CR), ADC_CR_ADDIS);
+    bit::flag::set(&(a_p_registers->CR), ADC_CR_ADDIS);
     wait_until::all_bits_are_cleared(a_p_registers->CR, ADC_CR_ADEN);
-    bit_flag::set(&(a_p_registers->CFGR1), ADC_CFGR1_CONT | ADC_CFGR1_DISCEN, static_cast<uint32_t>(a_mode));
-    bit_flag::set(&(a_p_registers->CR), ADC_CR_ADEN);
+    bit::flag::set(&(a_p_registers->CFGR1), ADC_CFGR1_CONT | ADC_CFGR1_DISCEN, static_cast<uint32_t>(a_mode));
+    bit::flag::set(&(a_p_registers->CR), ADC_CR_ADEN);
 }
 
 void polling_read_unsafe(ADC_TypeDef* a_p_registers, std::uint16_t* a_p_buffer, std::size_t a_buffer_capacity)
 {
     hkm_assert(a_buffer_capacity > 0);
-    bit_flag::set(&(a_p_registers->CR), ADC_CR_ADSTART);
+    bit::flag::set(&(a_p_registers->CR), ADC_CR_ADSTART);
     while (a_buffer_capacity--)
     {
-        while (false == bit_flag::is(a_p_registers->ISR, ADC_ISR_EOC)) continue;
+        while (false == bit::flag::is(a_p_registers->ISR, ADC_ISR_EOC)) continue;
         *(a_p_buffer++) = static_cast<std::uint16_t>(a_p_registers->DR);
     }
 
     // We've read all samples we needed - It's faster to stop conversion than wait for its end
-    bit_flag::set(&(a_p_registers->CR), ADC_CR_ADSTP);
-    bit_flag::set(&(a_p_registers->ISR), ADC_ISR_EOS | ADC_ISR_EOC);
+    bit::flag::set(&(a_p_registers->CR), ADC_CR_ADSTP);
+    bit::flag::set(&(a_p_registers->ISR), ADC_ISR_EOS | ADC_ISR_EOC);
 }
 
 void polling_read(ADC_TypeDef* a_p_registers, std::uint16_t* a_p_buffer, std::size_t a_buffer_capacity)
@@ -89,20 +89,20 @@ bool polling_read(ADC_TypeDef* a_p_registers,
 
     Scoped_guard<nvic> interrupt_guard;
     const std::uint64_t start = tick_counter<Milliseconds>::get();
-    std::size_t i             = 0;
+    std::size_t i = 0;
 
-    bit_flag::set(&(a_p_registers->CR), ADC_CR_ADSTART);
+    bit::flag::set(&(a_p_registers->CR), ADC_CR_ADSTART);
     while (tick_counter<Milliseconds>::get() < start + a_timeout.get() && i < a_buffer_capacity)
     {
-        if (true == bit_flag::is(a_p_registers->ISR, ADC_ISR_EOC))
+        if (true == bit::flag::is(a_p_registers->ISR, ADC_ISR_EOC))
         {
             a_p_buffer[i++] = static_cast<std::uint16_t>(a_p_registers->DR);
         }
     }
 
     // We've read all samples we needed - It's faster to stop conversion than wait for its end
-    bit_flag::set(&(a_p_registers->CR), ADC_CR_ADSTP);
-    bit_flag::set(&(a_p_registers->ISR), ADC_ISR_EOS | ADC_ISR_EOC);
+    bit::flag::set(&(a_p_registers->CR), ADC_CR_ADSTP);
+    bit::flag::set(&(a_p_registers->ISR), ADC_ISR_EOS | ADC_ISR_EOC);
     return i == a_buffer_capacity;
 }
 
@@ -135,15 +135,15 @@ void ADC_interrupt_handler(ADC* a_p_this)
 
     const std::uint32_t isr = p_registers->ISR;
 
-    if (true == bit_flag::is(isr, ADC_ISR_EOC))
+    if (true == bit::flag::is(isr, ADC_ISR_EOC))
     {
-        const bool series_end = bit_flag::is(isr, ADC_ISR_EOS);
+        const bool series_end = bit::flag::is(isr, ADC_ISR_EOS);
 
         a_p_this->callback.function(a_p_this, p_registers->DR, series_end, a_p_this->callback.p_user_data);
 
         if (true == series_end)
         {
-            bit_flag::set(&(p_registers->ISR), ADC_ISR_EOS);
+            bit::flag::set(&(p_registers->ISR), ADC_ISR_EOS);
         }
     }
 }
@@ -154,37 +154,37 @@ void ADC::enable(Resolution a_resolution,
                  Channel::Sampling_time a_sampling_time)
 {
     hkm_assert(true == this->is_created());
-    hkm_assert(0x0u == bit_flag::get(this->p_registers->CR, ADC_CR_ADSTART));
+    hkm_assert(0x0u == bit::flag::get(this->p_registers->CR, ADC_CR_ADSTART));
 
-    bit_flag::set(&(this->p_registers->CR), ADC_CR_ADVREGEN);
+    bit::flag::set(&(this->p_registers->CR), ADC_CR_ADVREGEN);
     delay::wait(1_ms);
 
-    bit_flag::set(&(this->p_registers->CR), ADC_CR_ADCAL);
+    bit::flag::set(&(this->p_registers->CR), ADC_CR_ADCAL);
 
     wait_until::all_bits_are_cleared(this->p_registers->CR, ADC_CR_ADCAL);
 
-    bit_flag::set(&(this->p_registers->CFGR1), ADC_CFGR1_RES_Msk, static_cast<std::uint32_t>(a_resolution));
-    bit_flag::set(&(this->p_registers->CR), ADC_CR_ADEN);
+    bit::flag::set(&(this->p_registers->CFGR1), ADC_CFGR1_RES_Msk, static_cast<std::uint32_t>(a_resolution));
+    bit::flag::set(&(this->p_registers->CR), ADC_CR_ADEN);
 
     wait_until::all_bits_are_set(this->p_registers->ISR, ADC_ISR_ADRDY);
 
-    bit_flag::set(&(this->p_registers->ISR), ADC_ISR_ADRDY);
+    bit::flag::set(&(this->p_registers->ISR), ADC_ISR_ADRDY);
 
     this->p_registers->CHSELR = 0;
     for (std::size_t i = 0; i < a_channels_count; i++)
     {
         hkm_assert(various::get_enum_incorrect_value<Channel::Id>() != a_p_channels[i]);
-        bit_flag::set(&this->p_registers->CHSELR, 1 << static_cast<uint32_t>(a_p_channels[i]));
+        bit::flag::set(&this->p_registers->CHSELR, 1 << static_cast<uint32_t>(a_p_channels[i]));
     }
 
     hkm_assert(various::get_enum_incorrect_value<Channel::Sampling_time>() != a_sampling_time);
-    bit_flag::set(&this->p_registers->SMPR, static_cast<std::uint32_t>(a_sampling_time));
+    bit::flag::set(&this->p_registers->SMPR, static_cast<std::uint32_t>(a_sampling_time));
 
     bool enable_voltage_reference = is_channel(Channel::Id::voltage_reference, a_p_channels, a_channels_count);
 
     if (true == enable_voltage_reference)
     {
-        bit_flag::set(&(ADC1_COMMON->CCR), ADC_CCR_VREFEN);
+        bit::flag::set(&(ADC1_COMMON->CCR), ADC_CCR_VREFEN);
     }
 }
 bool ADC::enable(Resolution a_resolution,
@@ -194,23 +194,23 @@ bool ADC::enable(Resolution a_resolution,
                  Milliseconds a_timeout)
 {
     hkm_assert(true == this->is_created());
-    hkm_assert(0x0u == bit_flag::get(this->p_registers->CR, ADC_CR_ADSTART));
+    hkm_assert(0x0u == bit::flag::get(this->p_registers->CR, ADC_CR_ADSTART));
     hkm_assert(0x0u == a_channels_count);
 
     const std::uint64_t start = tick_counter<Milliseconds>::get();
 
-    bit_flag::set(&(this->p_registers->CR), ADC_CR_ADVREGEN);
+    bit::flag::set(&(this->p_registers->CR), ADC_CR_ADVREGEN);
     delay::wait(21_us);
 
-    bit_flag::set(&(this->p_registers->CR), ADC_CR_ADCAL);
+    bit::flag::set(&(this->p_registers->CR), ADC_CR_ADCAL);
 
     bool ret = wait_until::all_bits_are_cleared(
         this->p_registers->CR, ADC_CR_ADCAL, a_timeout.get() - (tick_counter<Milliseconds>::get() - start));
 
     if (true == ret)
     {
-        bit_flag::set(&(this->p_registers->CFGR1), ADC_CFGR1_RES_Msk, static_cast<std::uint32_t>(a_resolution));
-        bit_flag::set(&(this->p_registers->CR), ADC_CR_ADEN);
+        bit::flag::set(&(this->p_registers->CFGR1), ADC_CFGR1_RES_Msk, static_cast<std::uint32_t>(a_resolution));
+        bit::flag::set(&(this->p_registers->CR), ADC_CR_ADEN);
 
         ret = wait_until::all_bits_are_set(
             this->p_registers->ISR, ADC_ISR_ADRDY, a_timeout.get() - (tick_counter<Milliseconds>::get() - start));
@@ -218,23 +218,23 @@ bool ADC::enable(Resolution a_resolution,
 
     if (true == ret)
     {
-        bit_flag::set(&(this->p_registers->ISR), ADC_ISR_ADRDY);
+        bit::flag::set(&(this->p_registers->ISR), ADC_ISR_ADRDY);
 
         this->p_registers->CHSELR = 0;
         for (std::size_t i = 0; i < a_channels_count; i++)
         {
             hkm_assert(various::get_enum_incorrect_value<Channel::Id>() != a_p_channels[i]);
-            bit_flag::set(&this->p_registers->CHSELR, 1 << static_cast<uint32_t>(a_p_channels[i]));
+            bit::flag::set(&this->p_registers->CHSELR, 1 << static_cast<uint32_t>(a_p_channels[i]));
         }
 
         hkm_assert(various::get_enum_incorrect_value<Channel::Sampling_time>() != a_sampling_time);
-        bit_flag::set(&this->p_registers->SMPR, static_cast<std::uint32_t>(a_sampling_time));
+        bit::flag::set(&this->p_registers->SMPR, static_cast<std::uint32_t>(a_sampling_time));
 
         bool enable_voltage_reference = is_channel(Channel::Id::voltage_reference, a_p_channels, a_channels_count);
 
         if (true == enable_voltage_reference)
         {
-            bit_flag::set(&(ADC1_COMMON->CCR), ADC_CCR_VREFEN);
+            bit::flag::set(&(ADC1_COMMON->CCR), ADC_CCR_VREFEN);
         }
     }
 
@@ -244,14 +244,14 @@ bool ADC::enable(Resolution a_resolution,
 void ADC::disable()
 {
     hkm_assert(true == this->is_created());
-    hkm_assert(0x0u == bit_flag::get(this->p_registers->CR, ADC_CR_ADSTART));
+    hkm_assert(0x0u == bit::flag::get(this->p_registers->CR, ADC_CR_ADSTART));
 
     this->p_registers->CHSELR = 0;
-    this->p_registers->SMPR   = 0;
+    this->p_registers->SMPR = 0;
 
-    bit_flag::clear(&(ADC1_COMMON->CCR), ADC_CCR_VREFEN);
+    bit::flag::clear(&(ADC1_COMMON->CCR), ADC_CCR_VREFEN);
 
-    bit_flag::set(&(this->p_registers->CR), ADC_CR_ADDIS);
+    bit::flag::set(&(this->p_registers->CR), ADC_CR_ADDIS);
     wait_until::all_bits_are_cleared(this->p_registers->CR, ADC_CR_ADDIS);
 }
 
@@ -259,7 +259,7 @@ ADC::Resolution ADC::get_resolution() const
 {
     hkm_assert(true == this->is_created());
 
-    return static_cast<Resolution>(bit_flag::get(this->p_registers->CFGR1, ADC_CFGR1_RES_Msk));
+    return static_cast<Resolution>(bit::flag::get(this->p_registers->CFGR1, ADC_CFGR1_RES_Msk));
 }
 
 std::array<std::pair<ADC::Channel::Id, bool>, ADC::s::max_channels_count> ADC::get_enabled_channels()
@@ -268,7 +268,7 @@ std::array<std::pair<ADC::Channel::Id, bool>, ADC::s::max_channels_count> ADC::g
 
     for (std::uint32_t i = 0; i < ADC::s::max_channels_count; i++)
     {
-        channels[i] = {static_cast<Channel::Id>(i), bit_flag::get(this->p_registers->CHSELR, 1 << i) };
+        channels[i] = { static_cast<Channel::Id>(i), bit::flag::get(this->p_registers->CHSELR, 1 << i) };
     }
 
     return channels;
@@ -338,12 +338,12 @@ template<> void ADC::Interrupt::read_start<ADC::Mode::single>(const Callback& a_
     this->p_ADC->callback = a_callback;
 
     // Errata ES0483 2.4.2 - disable ADC while configuring CFGR1 to prefent RES being cleared
-    bit_flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADDIS);
+    bit::flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADDIS);
     wait_until::all_bits_are_cleared(this->p_ADC->p_registers->CR, ADC_CR_ADEN);
-    bit_flag::clear(&(this->p_ADC->p_registers->CFGR1), ADC_CFGR1_CONT);
-    bit_flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADEN);
-    bit_flag::set(&(this->p_ADC->p_registers->IER), ADC_IER_EOCIE | ADC_IER_EOSIE);
-    bit_flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADSTART);
+    bit::flag::clear(&(this->p_ADC->p_registers->CFGR1), ADC_CFGR1_CONT);
+    bit::flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADEN);
+    bit::flag::set(&(this->p_ADC->p_registers->IER), ADC_IER_EOCIE | ADC_IER_EOSIE);
+    bit::flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADSTART);
 }
 template<> void ADC::Interrupt::read_start<ADC::Mode::continuous>(const Callback& a_callback)
 {
@@ -354,12 +354,12 @@ template<> void ADC::Interrupt::read_start<ADC::Mode::continuous>(const Callback
     this->p_ADC->callback = a_callback;
 
     // Errata ES0483 2.4.2 - disable ADC while configuring CFGR1 to prefent RES being cleared
-    bit_flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADDIS);
+    bit::flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADDIS);
     wait_until::all_bits_are_cleared(this->p_ADC->p_registers->CR, ADC_CR_ADEN);
-    bit_flag::set(&(this->p_ADC->p_registers->CFGR1), ADC_CFGR1_CONT);
-    bit_flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADEN);
-    bit_flag::set(&(this->p_ADC->p_registers->IER), ADC_IER_EOCIE | ADC_IER_EOSIE);
-    bit_flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADSTART);
+    bit::flag::set(&(this->p_ADC->p_registers->CFGR1), ADC_CFGR1_CONT);
+    bit::flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADEN);
+    bit::flag::set(&(this->p_ADC->p_registers->IER), ADC_IER_EOCIE | ADC_IER_EOSIE);
+    bit::flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADSTART);
 }
 template<>
 void ADC::Interrupt::read_start<ADC::Mode::discontinuous>(const Callback& a_callback, std::size_t a_group_size)
@@ -372,12 +372,12 @@ void ADC::Interrupt::read_start<ADC::Mode::discontinuous>(const Callback& a_call
     this->p_ADC->callback = a_callback;
 
     // Errata ES0483 2.4.2 - disable ADC while configuring CFGR1 to prefent RES being cleared
-    bit_flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADDIS);
+    bit::flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADDIS);
     wait_until::all_bits_are_cleared(this->p_ADC->p_registers->CR, ADC_CR_ADEN);
-    bit_flag::set(&(this->p_ADC->p_registers->CFGR1), ADC_CFGR1_CONT | ADC_CFGR1_DISCEN, ADC_CFGR1_DISCEN);
-    bit_flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADEN);
-    bit_flag::set(&(this->p_ADC->p_registers->IER), ADC_IER_EOCIE | ADC_IER_EOSIE);
-    bit_flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADSTART);
+    bit::flag::set(&(this->p_ADC->p_registers->CFGR1), ADC_CFGR1_CONT | ADC_CFGR1_DISCEN, ADC_CFGR1_DISCEN);
+    bit::flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADEN);
+    bit::flag::set(&(this->p_ADC->p_registers->IER), ADC_IER_EOCIE | ADC_IER_EOSIE);
+    bit::flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADSTART);
 }
 
 void ADC::Interrupt::read_stop()
@@ -385,14 +385,14 @@ void ADC::Interrupt::read_stop()
     Scoped_guard<nvic> guard;
 
     // Errata ES0483 2.4.2 - disable ADC while configuring CFGR1 to prefent RES being cleared
-    bit_flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADDIS);
+    bit::flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADDIS);
     wait_until::all_bits_are_cleared(this->p_ADC->p_registers->CR, ADC_CR_ADEN);
-    bit_flag::clear(&(this->p_ADC->p_registers->CFGR1), ADC_CFGR1_CONT | ADC_CFGR1_DISCEN);
-    bit_flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADEN);
-    bit_flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADSTP);
+    bit::flag::clear(&(this->p_ADC->p_registers->CFGR1), ADC_CFGR1_CONT | ADC_CFGR1_DISCEN);
+    bit::flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADEN);
+    bit::flag::set(&(this->p_ADC->p_registers->CR), ADC_CR_ADSTP);
 
-    bit_flag::clear(&(this->p_ADC->p_registers->IER), ADC_IER_EOCIE | ADC_IER_EOSIE);
-    bit_flag::clear(&(this->p_ADC->p_registers->CR), ADC_CR_ADSTART);
+    bit::flag::clear(&(this->p_ADC->p_registers->IER), ADC_IER_EOCIE | ADC_IER_EOSIE);
+    bit::flag::clear(&(this->p_ADC->p_registers->CR), ADC_CR_ADSTART);
 
     this->p_ADC->callback = { nullptr, nullptr };
 }
@@ -414,16 +414,16 @@ using namespace xmcu::soc::m0::stm32l0::rm0451::system;
 
 template<> void rcc<ADC>::async::enable<rcc<mcu<1u>>>(Prescaler a_prescaler, bool a_enable_in_lp)
 {
-    bit_flag::set(&RCC->APB2ENR, RCC_APB2ENR_ADCEN);
-    bit_flag::clear(&ADC1->CFGR2, ADC_CFGR2_CKMODE_Msk);
-    bit_flag::set(&ADC1_COMMON->CCR, ADC_CCR_PRESC_Msk, static_cast<std::uint32_t>(a_prescaler));
+    bit::flag::set(&RCC->APB2ENR, RCC_APB2ENR_ADCEN);
+    bit::flag::clear(&ADC1->CFGR2, ADC_CFGR2_CKMODE_Msk);
+    bit::flag::set(&ADC1_COMMON->CCR, ADC_CCR_PRESC_Msk, static_cast<std::uint32_t>(a_prescaler));
 }
 
 template<> void rcc<ADC>::sync::enable<rcc<mcu<1u>>::hclk<1u>>(Prescaler a_prescaler, bool a_enable_in_lp)
 {
-    bit_flag::set(&RCC->APB2ENR, RCC_APB2ENR_ADCEN);
-    bit_flag::clear(&ADC1_COMMON->CCR, ADC_CCR_PRESC_Msk);
-    bit_flag::set(&ADC1->CFGR2, ADC_CFGR2_CKMODE_Msk, static_cast<std::uint32_t>(a_prescaler));
+    bit::flag::set(&RCC->APB2ENR, RCC_APB2ENR_ADCEN);
+    bit::flag::clear(&ADC1_COMMON->CCR, ADC_CCR_PRESC_Msk);
+    bit::flag::set(&ADC1->CFGR2, ADC_CFGR2_CKMODE_Msk, static_cast<std::uint32_t>(a_prescaler));
 }
 
 } // namespace rm0451

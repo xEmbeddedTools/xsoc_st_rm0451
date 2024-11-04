@@ -110,13 +110,13 @@ public:
             const auto itr_end = std::end(a_data);
             auto itr = itr_begin;
 
-            bit_flag::set(&(this->p_LPUART->p_registers->ICR),
+            bit::flag::set(&(this->p_LPUART->p_registers->ICR),
                                   USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
 
             while (itr != itr_end &&
                    false == bit::is_any(this->p_LPUART->p_registers->ISR, USART_ISR_PE | USART_ISR_NE))
             {
-                if (true == bit_flag::is(this->p_LPUART->p_registers->ISR, USART_ISR_TXE))
+                if (true == bit::flag::is(this->p_LPUART->p_registers->ISR, USART_ISR_TXE))
                 {
                     this->p_LPUART->p_registers->TDR = *itr;
                     itr++;
@@ -137,13 +137,13 @@ public:
             const auto itr_end = std::end(a_first);
             auto itr = itr_begin;
 
-            bit_flag::set(&(this->p_LPUART->p_registers->ICR),
+            bit::flag::set(&(this->p_LPUART->p_registers->ICR),
                                   USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
 
             while (itr != itr_end &&
                    false == bit::is_any(this->p_LPUART->p_registers->ISR, USART_ISR_PE | USART_ISR_NE))
             {
-                if (true == bit_flag::is(this->p_LPUART->p_registers->ISR, USART_ISR_TXE))
+                if (true == bit::flag::is(this->p_LPUART->p_registers->ISR, USART_ISR_TXE))
                 {
                     this->p_LPUART->p_registers->TDR = *itr;
                     itr++;
@@ -167,14 +167,14 @@ public:
             const auto itr_end = std::end(a_data);
             auto itr = itr_begin;
 
-            bit_flag::set(&(this->p_LPUART->p_registers->ICR),
+            bit::flag::set(&(this->p_LPUART->p_registers->ICR),
                                   USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
 
             while (itr != itr_end &&
                    false == bit::is_any(this->p_LPUART->p_registers->ISR, USART_ISR_PE | USART_ISR_NE) &&
                    utils::tick_counter<Milliseconds>::get() <= timeout_end_timestamp)
             {
-                if (true == bit_flag::is(this->p_LPUART->p_registers->ISR, USART_ISR_TXE))
+                if (true == bit::flag::is(this->p_LPUART->p_registers->ISR, USART_ISR_TXE))
                 {
                     this->p_LPUART->p_registers->TDR = *itr;
                     itr++;
@@ -198,14 +198,14 @@ public:
             const auto itr_end = std::end(a_first);
             auto itr = itr_begin;
 
-            bit_flag::set(&(this->p_LPUART->p_registers->ICR),
+            bit::flag::set(&(this->p_LPUART->p_registers->ICR),
                                   USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
 
             while (itr != itr_end &&
                    false == bit::is_any(this->p_LPUART->p_registers->ISR, USART_ISR_PE | USART_ISR_NE) &&
                    utils::tick_counter<Milliseconds>::get() <= timeout_end_timestamp)
             {
-                if (true == bit_flag::is(this->p_LPUART->p_registers->ISR, USART_ISR_TXE))
+                if (true == bit::flag::is(this->p_LPUART->p_registers->ISR, USART_ISR_TXE))
                 {
                     this->p_LPUART->p_registers->TDR = *itr;
                     itr++;

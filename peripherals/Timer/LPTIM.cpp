@@ -46,14 +46,14 @@ void LPTIM_interrupt_handler(LPTIM* a_p_this)
     std::uint32_t ier = a_p_this->p_registers->IER;
     std::uint32_t isr = a_p_this->p_registers->ISR;
 
-    if (true == bit_flag::is(ier, LPTIM_IER_ARRMIE) && true == bit_flag::is(isr, LPTIM_ISR_ARRM))
+    if (true == bit::flag::is(ier, LPTIM_IER_ARRMIE) && true == bit::flag::is(isr, LPTIM_ISR_ARRM))
     {
         if (nullptr != a_p_this->tick_counter_callback.function)
         {
             a_p_this->tick_counter_callback.function(a_p_this->tick_counter_callback.p_user_data);
         }
 
-        bit_flag::set(&(a_p_this->p_registers->ICR), LPTIM_ICR_ARRMCF);
+        bit::flag::set(&(a_p_this->p_registers->ICR), LPTIM_ICR_ARRMCF);
     }
 }
 
@@ -67,7 +67,7 @@ void LPTIM::disable()
 
 void LPTIM::Tick_counter::enable(const Prescaler a_prescaler)
 {
-    hkm_assert(false == bit_flag::is(this->p_LPTIM->p_registers->CR, LPTIM_CR_ENABLE));
+    hkm_assert(false == bit::flag::is(this->p_LPTIM->p_registers->CR, LPTIM_CR_ENABLE));
 
     this->p_LPTIM->p_registers->ICR = LPTIM_ICR_CMPMCF | LPTIM_ICR_ARRMCF | LPTIM_ICR_EXTTRIGCF | LPTIM_ICR_CMPOKCF |
                                       LPTIM_ICR_ARROKCF | LPTIM_ICR_UPCF | LPTIM_ICR_DOWNCF;
@@ -77,9 +77,9 @@ void LPTIM::Tick_counter::enable(const Prescaler a_prescaler)
 
 void LPTIM::Tick_counter::start(Mode a_mode, std::uint16_t a_auto_reload)
 {
-    bit_flag::set(&(this->p_LPTIM->p_registers->ICR), LPTIM_ICR_ARROKCF);
-    bit_flag::set(&(this->p_LPTIM->p_registers->CR), LPTIM_CR_ENABLE);
-    bit_flag::set(&(this->p_LPTIM->p_registers->CR), static_cast<std::uint32_t>(a_mode));
+    bit::flag::set(&(this->p_LPTIM->p_registers->ICR), LPTIM_ICR_ARROKCF);
+    bit::flag::set(&(this->p_LPTIM->p_registers->CR), LPTIM_CR_ENABLE);
+    bit::flag::set(&(this->p_LPTIM->p_registers->CR), static_cast<std::uint32_t>(a_mode));
 
     this->p_LPTIM->p_registers->ARR = a_auto_reload;
 
@@ -88,9 +88,9 @@ void LPTIM::Tick_counter::start(Mode a_mode, std::uint16_t a_auto_reload)
 
 bool LPTIM::Tick_counter::start(Mode a_mode, std::uint16_t a_auto_reload, Milliseconds a_timeout)
 {
-    bit_flag::set(&(this->p_LPTIM->p_registers->ICR), LPTIM_ICR_ARROKCF);
-    bit_flag::set(&(this->p_LPTIM->p_registers->CR), LPTIM_CR_ENABLE);
-    bit_flag::set(&(this->p_LPTIM->p_registers->CR), static_cast<std::uint32_t>(a_mode));
+    bit::flag::set(&(this->p_LPTIM->p_registers->ICR), LPTIM_ICR_ARROKCF);
+    bit::flag::set(&(this->p_LPTIM->p_registers->CR), LPTIM_CR_ENABLE);
+    bit::flag::set(&(this->p_LPTIM->p_registers->CR), static_cast<std::uint32_t>(a_mode));
 
     NVIC_ClearPendingIRQ(this->p_LPTIM->irqn);
 
@@ -101,16 +101,16 @@ bool LPTIM::Tick_counter::start(Mode a_mode, std::uint16_t a_auto_reload, Millis
 
 void LPTIM::Tick_counter::stop()
 {
-    bit_flag::clear(&(this->p_LPTIM->p_registers->CR), LPTIM_CR_ENABLE);
+    bit::flag::clear(&(this->p_LPTIM->p_registers->CR), LPTIM_CR_ENABLE);
 }
 
 bool LPTIM::Tick_counter::Polling::is_overload() const
 {
-    bool r = bit_flag::is(this->p_LPTIM->p_registers->ISR, LPTIM_ISR_ARRM);
+    bool r = bit::flag::is(this->p_LPTIM->p_registers->ISR, LPTIM_ISR_ARRM);
 
     if (true == r)
     {
-        bit_flag::set(&(this->p_LPTIM->p_registers->ICR), LPTIM_ICR_ARRMCF);
+        bit::flag::set(&(this->p_LPTIM->p_registers->ICR), LPTIM_ICR_ARRMCF);
     }
 
     return r;
@@ -145,13 +145,13 @@ void LPTIM::Tick_counter::Interrupt::register_callback(const Callback& a_callbac
 
     this->p_LPTIM->tick_counter_callback = a_callback;
 
-    bit_flag::set(&(this->p_LPTIM->p_registers->IER), LPTIM_IER_ARRMIE);
+    bit::flag::set(&(this->p_LPTIM->p_registers->IER), LPTIM_IER_ARRMIE);
 }
 void LPTIM::Tick_counter::Interrupt::unregister_callback()
 {
     Scoped_guard<nvic> guard;
 
-    bit_flag::clear(&(this->p_LPTIM->p_registers->IER), LPTIM_IER_ARRMIE);
+    bit::flag::clear(&(this->p_LPTIM->p_registers->IER), LPTIM_IER_ARRMIE);
 
     this->p_LPTIM->tick_counter_callback = { nullptr, nullptr };
 }
@@ -173,30 +173,30 @@ using namespace xmcu::soc::m0::stm32l0::rm0451::system;
 
 template<> template<> void rcc<LPTIM, 1>::enable<rcc<mcu<1u>>::pclk<1u>>(bool a_enable_in_lp)
 {
-    bit_flag::clear(&(RCC->CCIPR), RCC_CCIPR_LPTIM1SEL);
-    bit_flag::set(&(RCC->APB1ENR), RCC_APB1ENR_LPTIM1EN);
+    bit::flag::clear(&(RCC->CCIPR), RCC_CCIPR_LPTIM1SEL);
+    bit::flag::set(&(RCC->APB1ENR), RCC_APB1ENR_LPTIM1EN);
 
     if (true == a_enable_in_lp)
     {
-        bit_flag::set(&(RCC->APB1SMENR), RCC_APB1SMENR_LPTIM1SMEN);
+        bit::flag::set(&(RCC->APB1SMENR), RCC_APB1SMENR_LPTIM1SMEN);
     }
     else
     {
-        bit_flag::clear(&(RCC->APB1SMENR), RCC_APB1SMENR_LPTIM1SMEN);
+        bit::flag::clear(&(RCC->APB1SMENR), RCC_APB1SMENR_LPTIM1SMEN);
     }
 }
 template<> template<> void rcc<peripherals::LPTIM, 1>::enable<hsi16>(bool a_enable_in_lp)
 {
-    bit_flag::set(&(RCC->CCIPR), RCC_CCIPR_LPTIM1SEL, RCC_CCIPR_LPTIM1SEL_1);
-    bit_flag::set(&(RCC->APB1ENR), RCC_APB1ENR_LPTIM1EN);
+    bit::flag::set(&(RCC->CCIPR), RCC_CCIPR_LPTIM1SEL, RCC_CCIPR_LPTIM1SEL_1);
+    bit::flag::set(&(RCC->APB1ENR), RCC_APB1ENR_LPTIM1EN);
 
     if (true == a_enable_in_lp)
     {
-        bit_flag::set(&(RCC->APB1SMENR), RCC_APB1SMENR_LPTIM1SMEN);
+        bit::flag::set(&(RCC->APB1SMENR), RCC_APB1SMENR_LPTIM1SMEN);
     }
     else
     {
-        bit_flag::clear(&(RCC->APB1SMENR), RCC_APB1SMENR_LPTIM1SMEN);
+        bit::flag::clear(&(RCC->APB1SMENR), RCC_APB1SMENR_LPTIM1SMEN);
     }
 }
 

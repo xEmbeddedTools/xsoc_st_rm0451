@@ -5,10 +5,11 @@
  *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
  */
 
-// hkm
+// xmcu
 #include <xmcu/Duration.hpp>
-#include <xmcu/non_constructible.hpp>
 #include <xmcu/Frequency.hpp>
+#include <xmcu/bit.hpp>
+#include <xmcu/non_constructible.hpp>
 
 namespace xmcu {
 namespace soc {
@@ -27,7 +28,7 @@ public:
 
     static bool is_enabled()
     {
-        return bit_flag::is(RCC->CR, RCC_CR_HSIRDY);
+        return bit::flag::is(RCC->CR, RCC_CR_HSIRDY);
     }
 
     static std::uint32_t get_frequency_Hz()

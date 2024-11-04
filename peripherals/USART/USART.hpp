@@ -16,8 +16,6 @@
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/Not_null.hpp>
 #include <xmcu/bit.hpp>
-#include <xmcu/bit_flag.hpp>
-#include <xmcu/various.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/GPIO/GPIO.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/rcc.hpp>
@@ -26,6 +24,7 @@
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
 #include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
 #include <xmcu/soc/peripheral.hpp>
+#include <xmcu/various.hpp>
 
 namespace xmcu {
 namespace soc {
@@ -152,21 +151,14 @@ public:
 
         Result transmit(Not_null<const std::uint8_t*> a_p_data, std::size_t a_data_size_in_words);
         Result transmit(Not_null<const std::uint16_t*> a_p_data, std::size_t a_data_size_in_words);
-        Result transmit(Not_null<const std::uint8_t*> a_p_data,
-                        std::size_t a_data_size_in_words,
-                        Milliseconds a_timeout);
-        Result transmit(Not_null<const uint16_t*> a_p_data,
-                        std::size_t a_data_size_in_words,
-                        Milliseconds a_timeout);
+        Result
+        transmit(Not_null<const std::uint8_t*> a_p_data, std::size_t a_data_size_in_words, Milliseconds a_timeout);
+        Result transmit(Not_null<const uint16_t*> a_p_data, std::size_t a_data_size_in_words, Milliseconds a_timeout);
 
         Result receive(Not_null<std::uint8_t*> a_p_data, std::size_t a_data_size_in_words);
         Result receive(Not_null<std::uint16_t*> a_p_data, std::size_t a_data_size_in_words);
-        Result receive(Not_null<std::uint8_t*> a_p_data,
-                       std::size_t a_data_size_in_words,
-                       Milliseconds a_timeout);
-        Result receive(Not_null<std::uint16_t*> a_p_data,
-                       std::size_t a_data_size_in_words,
-                       Milliseconds a_timeout);
+        Result receive(Not_null<std::uint8_t*> a_p_data, std::size_t a_data_size_in_words, Milliseconds a_timeout);
+        Result receive(Not_null<std::uint16_t*> a_p_data, std::size_t a_data_size_in_words, Milliseconds a_timeout);
 
         template<typename t_Type> std::uint32_t transmit_2(const t_Type& a_data)
         {
@@ -174,12 +166,11 @@ public:
             const auto itr_end = std::end(a_data);
             auto itr = itr_begin;
 
-            bit_flag::set(&(this->p_USART->p_registers->ICR), USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
+            bit::flag::set(&(this->p_USART->p_registers->ICR), USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
 
-            while (itr != itr_end &&
-                   false == bit::is_any(this->p_USART->p_registers->ISR, USART_ISR_PE | USART_ISR_NE))
+            while (itr != itr_end && false == bit::is_any(this->p_USART->p_registers->ISR, USART_ISR_PE | USART_ISR_NE))
             {
-                if (true == bit_flag::is(this->p_USART->p_registers->ISR, USART_ISR_TXE))
+                if (true == bit::flag::is(this->p_USART->p_registers->ISR, USART_ISR_TXE))
                 {
                     this->p_USART->p_registers->TDR = *itr;
                     itr++;
@@ -200,12 +191,11 @@ public:
             const auto itr_end = std::end(a_first);
             auto itr = itr_begin;
 
-            bit_flag::set(&(this->p_USART->p_registers->ICR), USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
+            bit::flag::set(&(this->p_USART->p_registers->ICR), USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
 
-            while (itr != itr_end &&
-                   false == bit::is_any(this->p_USART->p_registers->ISR, USART_ISR_PE | USART_ISR_NE))
+            while (itr != itr_end && false == bit::is_any(this->p_USART->p_registers->ISR, USART_ISR_PE | USART_ISR_NE))
             {
-                if (true == bit_flag::is(this->p_USART->p_registers->ISR, USART_ISR_TXE))
+                if (true == bit::flag::is(this->p_USART->p_registers->ISR, USART_ISR_TXE))
                 {
                     this->p_USART->p_registers->TDR = *itr;
                     itr++;
@@ -222,20 +212,19 @@ public:
 
         template<typename t_Type> std::uint32_t transmit_2(Milliseconds a_timeout, const t_Type& a_data)
         {
-            const std::uint64_t timeout_end_timestamp =
-                utils::tick_counter<Milliseconds>::get() + a_timeout.get();
+            const std::uint64_t timeout_end_timestamp = utils::tick_counter<Milliseconds>::get() + a_timeout.get();
 
             const auto itr_begin = std::begin(a_data);
             const auto itr_end = std::end(a_data);
             auto itr = itr_begin;
 
-            bit_flag::set(&(this->p_USART->p_registers->ICR), USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
+            bit::flag::set(&(this->p_USART->p_registers->ICR), USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
 
             while (itr != itr_end &&
                    false == bit::is_any(this->p_USART->p_registers->ISR, USART_ISR_PE | USART_ISR_NE) &&
                    utils::tick_counter<Milliseconds>::get() <= timeout_end_timestamp)
             {
-                if (true == bit_flag::is(this->p_USART->p_registers->ISR, USART_ISR_TXE))
+                if (true == bit::flag::is(this->p_USART->p_registers->ISR, USART_ISR_TXE))
                 {
                     this->p_USART->p_registers->TDR = *itr;
                     itr++;
@@ -259,13 +248,13 @@ public:
             const auto itr_end = std::end(a_first);
             auto itr = itr_begin;
 
-            bit_flag::set(&(this->p_USART->p_registers->ICR), USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
+            bit::flag::set(&(this->p_USART->p_registers->ICR), USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
 
             while (itr != itr_end &&
                    false == bit::is_any(this->p_USART->p_registers->ISR, USART_ISR_PE | USART_ISR_NE) &&
                    utils::tick_counter<Milliseconds>::get() <= timeout_end_timestamp)
             {
-                if (true == bit_flag::is(this->p_USART->p_registers->ISR, USART_ISR_TXE))
+                if (true == bit::flag::is(this->p_USART->p_registers->ISR, USART_ISR_TXE))
                 {
                     this->p_USART->p_registers->TDR = *itr;
                     itr++;
@@ -533,10 +522,10 @@ template<> template<> void rcc<peripherals::USART, 2u>::enable<sources::hsi16>(b
 // template<> template<> void rcc<peripherals::USART, 2u>::enable<sources::lse>(bool a_enable_in_lp);
 template<> void rcc<peripherals::USART, 2u>::disable();
 
-template<> inline void
-peripherals::GPIO::Alternate_function::enable<peripherals::USART, 2>(Limited<std::uint32_t, 0, 15> a_id,
-                                                                     const Enable_config& a_config,
-                                                                     Pin* a_p_pin)
+template<>
+inline void peripherals::GPIO::Alternate_function::enable<peripherals::USART, 2>(Limited<std::uint32_t, 0, 15> a_id,
+                                                                                 const Enable_config& a_config,
+                                                                                 Pin* a_p_pin)
 {
     // Check if GPIO is eligible for RX/TX pin
     std::uint8_t alternate_function_index;
