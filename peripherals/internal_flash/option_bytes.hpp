@@ -15,7 +15,7 @@
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 namespace peripherals {
 
@@ -62,7 +62,7 @@ public:
 
 } // namespace peripherals
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu
@@ -70,24 +70,24 @@ public:
 namespace xmcu {
 namespace soc {
 
-template<> class Scoped_guard<m0::stm32l0::rm0451::peripherals::option_bytes::unlocker> : private Non_copyable
+template<> class Scoped_guard<m0::l0::rm0451::peripherals::option_bytes::unlocker> : private Non_copyable
 {
 public:
     Scoped_guard()
         : unlocked(false)
     {
-        m0::stm32l0::rm0451::peripherals::option_bytes::unlocker::unlock();
+        m0::l0::rm0451::peripherals::option_bytes::unlocker::unlock();
         this->unlocked = (false == bit::flag::is(FLASH->PECR, FLASH_PECR_OPTLOCK));
     }
 
     Scoped_guard(Milliseconds a_timeout)
-        : unlocked(m0::stm32l0::rm0451::peripherals::option_bytes::unlocker::unlock(a_timeout))
+        : unlocked(m0::l0::rm0451::peripherals::option_bytes::unlocker::unlock(a_timeout))
     {
     }
 
     ~Scoped_guard()
     {
-        m0::stm32l0::rm0451::peripherals::option_bytes::unlocker::lock();
+        m0::l0::rm0451::peripherals::option_bytes::unlocker::lock();
     }
 
     bool is_unlocked() const

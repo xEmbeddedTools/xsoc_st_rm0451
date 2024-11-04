@@ -16,7 +16,7 @@
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 
 template<typename Periph_t, std::uint32_t id = std::numeric_limits<std::uint32_t>::max()> class rcc
@@ -25,7 +25,7 @@ template<typename Periph_t, std::uint32_t id = std::numeric_limits<std::uint32_t
 };
 
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu

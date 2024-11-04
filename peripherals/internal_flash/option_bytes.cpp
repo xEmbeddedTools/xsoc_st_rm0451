@@ -4,7 +4,7 @@
  */
 
 // this
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/internal_flash/option_bytes.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/internal_flash/option_bytes.hpp>
 
 // externals
 #include <stm32l0xx.h>
@@ -12,9 +12,9 @@
 // xmcu
 #include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/m0/nvic.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/internal_flash/internal_flash.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/internal_flash/internal_flash.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/wait_until.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
 namespace {
@@ -45,12 +45,12 @@ constexpr std::uint32_t OB_BASE_ADDRESS_SLOT_4 = OB_BASE_ADDRESS_SLOT_3 + 4u;
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 namespace peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m0::stm32l0::rm0451::utils;
-using namespace xmcu::soc::m0::stm32l0::rm0451::system;
+using namespace xmcu::soc::m0::l0::rm0451::utils;
+using namespace xmcu::soc::m0::l0::rm0451::system;
 
 void option_bytes::reload()
 {
@@ -149,7 +149,7 @@ std::uint32_t option_bytes::USER::get()
 }
 } // namespace peripherals
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu

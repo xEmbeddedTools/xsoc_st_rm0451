@@ -5,12 +5,12 @@
 
 // xmcu
 #include <xmcu/bit.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/DMA.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/USART/DMA.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/DMA.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/USART/DMA.hpp>
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m0::stm32l0::rm0451;
+using namespace xmcu::soc::m0::l0::rm0451;
 
 DMA<>::Callback* p_callbacks[DMA<>::channel_count] = { nullptr };
 
@@ -105,9 +105,9 @@ void DMA1_Channel4_5_6_7_IRQHandler()
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
-using namespace xmcu::soc::m0::stm32l0::rm0451::peripherals;
+using namespace xmcu::soc::m0::l0::rm0451::peripherals;
 
 void DMA<USART>::Receiver::Interrupt::set_context()
 {
@@ -166,7 +166,7 @@ void DMA<LPUART>::Transmitter::Interrupt::clear_context()
 }
 
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu

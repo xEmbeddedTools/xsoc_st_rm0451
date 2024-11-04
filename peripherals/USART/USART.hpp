@@ -17,19 +17,19 @@
 #include <xmcu/Not_null.hpp>
 #include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/GPIO/GPIO.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/rcc.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/GPIO/GPIO.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/rcc.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/wait_until.hpp>
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 namespace peripherals {
 class USART : private Non_copyable
@@ -499,7 +499,7 @@ constexpr USART::Event_flag operator|=(USART::Event_flag& a_f1, USART::Event_fla
 
 } // namespace peripherals
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu
@@ -507,7 +507,7 @@ constexpr USART::Event_flag operator|=(USART::Event_flag& a_f1, USART::Event_fla
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 
 template<std::uint32_t id> class rcc<peripherals::USART, id> : private non_constructible
@@ -548,19 +548,19 @@ inline void peripherals::GPIO::Alternate_function::enable<peripherals::USART, 2>
 }
 
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu
 
 namespace xmcu {
 namespace soc {
-template<> class peripheral<m0::stm32l0::rm0451::peripherals::USART, 2u> : private non_constructible
+template<> class peripheral<m0::l0::rm0451::peripherals::USART, 2u> : private non_constructible
 {
 public:
-    static m0::stm32l0::rm0451::peripherals::USART create()
+    static m0::l0::rm0451::peripherals::USART create()
     {
-        return m0::stm32l0::rm0451::peripherals::USART(0u, USART2, IRQn_Type::USART2_IRQn);
+        return m0::l0::rm0451::peripherals::USART(0u, USART2, IRQn_Type::USART2_IRQn);
     }
 };
 } // namespace soc

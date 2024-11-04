@@ -15,16 +15,16 @@
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/Not_null.hpp>
 #include <xmcu/bit.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/GPIO/GPIO.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/rcc.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/GPIO/GPIO.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/rcc.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 namespace peripherals {
 
@@ -101,7 +101,7 @@ private:
 
 } // namespace peripherals
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu
@@ -109,7 +109,7 @@ private:
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 
 template<std::uint32_t id> class rcc<peripherals::SPI, id> : private xmcu::non_constructible
@@ -174,19 +174,19 @@ peripherals::GPIO::Alternate_function::enable<peripherals::SPI, 1>(Limited<std::
 }
 
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu
 
 namespace xmcu {
 namespace soc {
-template<> class peripheral<m0::stm32l0::rm0451::peripherals::SPI, 1u> : private xmcu::non_constructible
+template<> class peripheral<m0::l0::rm0451::peripherals::SPI, 1u> : private xmcu::non_constructible
 {
 public:
-    static m0::stm32l0::rm0451::peripherals::SPI create()
+    static m0::l0::rm0451::peripherals::SPI create()
     {
-        return m0::stm32l0::rm0451::peripherals::SPI(0u, SPI1, IRQn_Type::SPI1_IRQn);
+        return m0::l0::rm0451::peripherals::SPI(0u, SPI1, IRQn_Type::SPI1_IRQn);
     }
 };
 } // namespace soc

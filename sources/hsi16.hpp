@@ -14,7 +14,7 @@
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 namespace sources {
 class hsi16 : private non_constructible
@@ -44,7 +44,7 @@ public:
 
 } // namespace sources
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu

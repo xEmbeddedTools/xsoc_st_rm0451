@@ -13,16 +13,16 @@
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/rcc.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/rcc.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 namespace peripherals {
 class LPTIM : private xmcu::Non_copyable
@@ -161,7 +161,7 @@ private:
 void LPTIM_interrupt_handler(LPTIM* a_p_this);
 } // namespace peripherals
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu
@@ -169,7 +169,7 @@ void LPTIM_interrupt_handler(LPTIM* a_p_this);
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 template<std::uint32_t id> class rcc<peripherals::LPTIM, id> : private xmcu::non_constructible
 {
@@ -182,19 +182,19 @@ template<> template<> void rcc<peripherals::LPTIM, 1>::enable<rcc<system::mcu<1u
 template<> template<> void rcc<peripherals::LPTIM, 1>::enable<sources::hsi16>(bool a_enable_in_lp);
 
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu
 
 namespace xmcu {
 namespace soc {
-template<> class peripheral<m0::stm32l0::rm0451::peripherals::LPTIM, 1u> : private non_constructible
+template<> class peripheral<m0::l0::rm0451::peripherals::LPTIM, 1u> : private non_constructible
 {
 public:
-    static m0::stm32l0::rm0451::peripherals::LPTIM create()
+    static m0::l0::rm0451::peripherals::LPTIM create()
     {
-        return m0::stm32l0::rm0451::peripherals::LPTIM(0u, LPTIM1, IRQn_Type::LPTIM1_IRQn);
+        return m0::l0::rm0451::peripherals::LPTIM(0u, LPTIM1, IRQn_Type::LPTIM1_IRQn);
     }
 };
 } // namespace soc

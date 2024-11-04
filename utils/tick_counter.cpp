@@ -4,7 +4,7 @@
  */
 
 // this
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/tick_counter.hpp>
 
 // debug
 #include <xmcu/assertion.hpp>
@@ -12,13 +12,13 @@
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 namespace utils {
 
 // using namespace common;
-using namespace xmcu::soc::m0::stm32l0::rm0451::sources;
-using namespace xmcu::soc::m0::stm32l0::rm0451::system;
+using namespace xmcu::soc::m0::l0::rm0451::sources;
+using namespace xmcu::soc::m0::l0::rm0451::system;
 
 tick_counter<Milliseconds>::Callback tick_counter<Milliseconds>::callback;
 std::uint16_t auto_reload = 0x0u;
@@ -94,7 +94,7 @@ template<> void tick_counter<Milliseconds>::stop<Systick>()
 
 } // namespace utils
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu

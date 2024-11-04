@@ -4,13 +4,13 @@
  */
 
 // this
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/hse.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/hse.hpp>
 
 // xmcu
 #include <xmcu/Duration.hpp>
 #include <xmcu/bit.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/wait_until.hpp>
 
 namespace {
 constexpr std::uint32_t hse_control_unlock_key = 0xCAFECAFEu;
@@ -19,11 +19,11 @@ constexpr std::uint32_t hse_control_unlock_key = 0xCAFECAFEu;
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 namespace sources {
 using namespace xmcu;
-using namespace xmcu::soc::m0::stm32l0::rm0451::utils;
+using namespace xmcu::soc::m0::l0::rm0451::utils;
 
 void hse::enable()
 {
@@ -59,7 +59,7 @@ bool hse::disable(Milliseconds a_timeout)
 
 } // namespace sources
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu

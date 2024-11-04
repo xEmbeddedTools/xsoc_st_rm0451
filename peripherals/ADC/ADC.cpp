@@ -14,10 +14,10 @@
 // xmcu
 #include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/m0/nvic.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/ADC/ADC.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/delay.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/ADC/ADC.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/delay.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/wait_until.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
 // debug
@@ -27,9 +27,9 @@ namespace {
 using namespace xmcu;
 using namespace xmcu::soc;
 using namespace xmcu::soc::m0;
-using namespace xmcu::soc::m0::stm32l0::rm0451::peripherals;
-using namespace xmcu::soc::m0::stm32l0::rm0451::system;
-using namespace xmcu::soc::m0::stm32l0::rm0451::utils;
+using namespace xmcu::soc::m0::l0::rm0451::peripherals;
+using namespace xmcu::soc::m0::l0::rm0451::system;
+using namespace xmcu::soc::m0::l0::rm0451::utils;
 
 ADC* irq_context[] = { nullptr };
 
@@ -109,7 +109,7 @@ bool polling_read(ADC_TypeDef* a_p_registers,
 } // namespace
 
 extern "C" {
-using namespace xmcu::soc::m0::stm32l0::rm0451::peripherals;
+using namespace xmcu::soc::m0::l0::rm0451::peripherals;
 
 void ADC1_IRQHandler()
 {
@@ -121,7 +121,7 @@ void ADC1_IRQHandler()
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 namespace peripherals {
 using namespace xmcu;
@@ -398,7 +398,7 @@ void ADC::Interrupt::read_stop()
 }
 } // namespace peripherals
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu
@@ -406,11 +406,11 @@ void ADC::Interrupt::read_stop()
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
-using namespace xmcu::soc::m0::stm32l0::rm0451::peripherals;
-using namespace xmcu::soc::m0::stm32l0::rm0451::sources;
-using namespace xmcu::soc::m0::stm32l0::rm0451::system;
+using namespace xmcu::soc::m0::l0::rm0451::peripherals;
+using namespace xmcu::soc::m0::l0::rm0451::sources;
+using namespace xmcu::soc::m0::l0::rm0451::system;
 
 template<> void rcc<ADC>::async::enable<rcc<mcu<1u>>>(Prescaler a_prescaler, bool a_enable_in_lp)
 {
@@ -427,7 +427,7 @@ template<> void rcc<ADC>::sync::enable<rcc<mcu<1u>>::hclk<1u>>(Prescaler a_presc
 }
 
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu

@@ -4,20 +4,20 @@
  */
 
 // this
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/Timer/LPTIM.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/Timer/LPTIM.hpp>
 
 // hkm
 #include <xmcu/various.hpp>
 #include <xmcu/soc/ST/arm/m0/nvic.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/wait_until.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
 // debug
 #include <xmcu/assertion.hpp>
 
 namespace {
-using namespace xmcu::soc::m0::stm32l0::rm0451::peripherals;
+using namespace xmcu::soc::m0::l0::rm0451::peripherals;
 
 LPTIM* LPTIM_irq_context[1] = { nullptr };
 } // namespace
@@ -34,11 +34,11 @@ void LPTIM1_IRQHandler()
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 namespace peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m0::stm32l0::rm0451::utils;
+using namespace xmcu::soc::m0::l0::rm0451::utils;
 using namespace utils;
 
 void LPTIM_interrupt_handler(LPTIM* a_p_this)
@@ -157,7 +157,7 @@ void LPTIM::Tick_counter::Interrupt::unregister_callback()
 }
 } // namespace peripherals
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu
@@ -165,11 +165,11 @@ void LPTIM::Tick_counter::Interrupt::unregister_callback()
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
-using namespace xmcu::soc::m0::stm32l0::rm0451::peripherals;
-using namespace xmcu::soc::m0::stm32l0::rm0451::sources;
-using namespace xmcu::soc::m0::stm32l0::rm0451::system;
+using namespace xmcu::soc::m0::l0::rm0451::peripherals;
+using namespace xmcu::soc::m0::l0::rm0451::sources;
+using namespace xmcu::soc::m0::l0::rm0451::system;
 
 template<> template<> void rcc<LPTIM, 1>::enable<rcc<mcu<1u>>::pclk<1u>>(bool a_enable_in_lp)
 {
@@ -201,7 +201,7 @@ template<> template<> void rcc<peripherals::LPTIM, 1>::enable<hsi16>(bool a_enab
 }
 
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu
