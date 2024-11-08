@@ -13,14 +13,14 @@
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/arm/Systick.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/rcc.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/rcc.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/system/mcu/mcu.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 namespace utils {
 
@@ -74,7 +74,7 @@ template<> void tick_counter<Milliseconds>::stop<Systick>();
 
 } // namespace utils
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu

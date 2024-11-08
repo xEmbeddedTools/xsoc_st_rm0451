@@ -14,14 +14,14 @@
 // xmcu
 #include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/msi.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/msi.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/system/mcu/mcu.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 namespace system {
 
@@ -70,12 +70,12 @@ public:
 
 } // namespace system
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu
 
-namespace xmcu::soc::m0::stm32l0::rm0451 {
+namespace xmcu::soc::m0::l0::rm0451 {
 
 template<> class rcc<system::pwr<system::mcu<1u>>> : private non_constructible
 {
@@ -90,4 +90,4 @@ public:
     }
 };
 
-} // namespace xmcu::soc::m0::stm32l0::rm0451
+} // namespace xmcu::soc::m0::l0::rm0451

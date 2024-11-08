@@ -15,7 +15,7 @@
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 namespace utils {
 
@@ -47,7 +47,7 @@ struct wait_until : private non_constructible
 
 } // namespace utils
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu

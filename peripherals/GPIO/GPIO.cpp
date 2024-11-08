@@ -7,7 +7,7 @@
 #include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/arm/m0/nvic.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/GPIO/GPIO.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/GPIO/GPIO.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
 // debug
@@ -15,7 +15,7 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m0::stm32l0::rm0451::peripherals;
+using namespace xmcu::soc::m0::l0::rm0451::peripherals;
 
 GPIO::Interrupt::Callback callbacks[3u];
 
@@ -58,10 +58,10 @@ void EXTI4_15_IRQHandler()
 }
 }
 
-namespace xmcu::soc::m0::stm32l0::rm0451::peripherals {
+namespace xmcu::soc::m0::l0::rm0451::peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m0::stm32l0::rm0451::sources;
-using namespace xmcu::soc::m0::stm32l0::rm0451::system;
+using namespace xmcu::soc::m0::l0::rm0451::sources;
+using namespace xmcu::soc::m0::l0::rm0451::system;
 
 void GPIO::In::Pin::set_pull(Pull a_pull)
 {
@@ -556,10 +556,10 @@ void GPIO::mco::disable()
     bit::flag::clear(&(RCC->CFGR), RCC_CFGR_MCOSEL);
 }
 
-} // namespace xmcu::soc::m0::stm32l0::rm0451::peripherals
+} // namespace xmcu::soc::m0::l0::rm0451::peripherals
 
-namespace xmcu::soc::m0::stm32l0::rm0451 {
-using namespace xmcu::soc::m0::stm32l0::rm0451::system;
+namespace xmcu::soc::m0::l0::rm0451 {
+using namespace xmcu::soc::m0::l0::rm0451::system;
 
 template<> void rcc<GPIO, 1>::enable(bool a_enable_in_lp)
 {
@@ -624,4 +624,4 @@ template<> void GPIO::Alternate_function::enable<GPIO::mco>(Limited<std::uint32_
     this->enable(a_id, a_config, 0x0u, a_p_pin);
 }
 
-} // namespace xmcu::soc::m0::stm32l0::rm0451
+} // namespace xmcu::soc::m0::l0::rm0451

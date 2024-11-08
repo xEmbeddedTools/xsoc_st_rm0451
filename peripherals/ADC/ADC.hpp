@@ -21,15 +21,15 @@
 #include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/rcc.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/rcc.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 namespace peripherals {
 
@@ -268,7 +268,7 @@ void ADC::Interrupt::read_start<ADC::Mode::discontinuous>(const Callback& a_call
 
 } // namespace peripherals
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu
@@ -276,7 +276,7 @@ void ADC::Interrupt::read_start<ADC::Mode::discontinuous>(const Callback& a_call
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 template<> class rcc<peripherals::ADC> : private non_constructible
 {
@@ -331,19 +331,19 @@ template<> void rcc<peripherals::ADC>::async::enable<rcc<system::mcu<1u>>>(Presc
 template<>
 void rcc<peripherals::ADC>::sync::enable<rcc<system::mcu<1u>>::hclk<1u>>(Prescaler a_prescaler, bool a_enable_in_lp);
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu
 
 namespace xmcu {
 namespace soc {
-template<> class peripheral<m0::stm32l0::rm0451::peripherals::ADC, 1u> : private non_constructible
+template<> class peripheral<m0::l0::rm0451::peripherals::ADC, 1u> : private non_constructible
 {
 public:
-    static m0::stm32l0::rm0451::peripherals::ADC create()
+    static m0::l0::rm0451::peripherals::ADC create()
     {
-        return m0::stm32l0::rm0451::peripherals::ADC(0U, ADC1, IRQn_Type::ADC1_IRQn);
+        return m0::l0::rm0451::peripherals::ADC(0U, ADC1, IRQn_Type::ADC1_IRQn);
     }
 };
 } // namespace soc

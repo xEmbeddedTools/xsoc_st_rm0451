@@ -4,21 +4,21 @@
  */
 
 // this
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/hsi16.hpp>
 
 // xmcu
 #include <xmcu/bit.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/wait_until.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 namespace sources {
 using namespace xmcu;
-using namespace xmcu::soc::m0::stm32l0::rm0451::utils;
+using namespace xmcu::soc::m0::l0::rm0451::utils;
 
 void hsi16::enable()
 {
@@ -48,7 +48,7 @@ bool hsi16::disable(Milliseconds a_timeout)
 }
 } // namespace sources
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu

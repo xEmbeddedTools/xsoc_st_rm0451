@@ -4,25 +4,25 @@
  */
 
 // this
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/pwr/pwr.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/system/pwr/pwr.hpp>
 
 // xmcu
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/internal_flash/internal_flash.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/rcc.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/internal_flash/internal_flash.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/rcc.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/wait_until.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 namespace system {
 using namespace xmcu;
-using namespace xmcu::soc::m0::stm32l0::rm0451::sources;
-using namespace xmcu::soc::m0::stm32l0::rm0451::system;
-using namespace xmcu::soc::m0::stm32l0::rm0451::utils;
-using namespace xmcu::soc::m0::stm32l0::rm0451::peripherals;
+using namespace xmcu::soc::m0::l0::rm0451::sources;
+using namespace xmcu::soc::m0::l0::rm0451::system;
+using namespace xmcu::soc::m0::l0::rm0451::utils;
+using namespace xmcu::soc::m0::l0::rm0451::peripherals;
 
 void pwr<mcu<1u>>::stop_mode::enter(Type a_type, Method a_method, Sleeponexit a_sleeponexit)
 {
@@ -79,7 +79,7 @@ pwr<mcu<1u>>::Voltage_scaling pwr<mcu<1u>>::get_voltage_scaling()
 
 } // namespace system
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu

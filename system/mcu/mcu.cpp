@@ -4,11 +4,11 @@
  */
 
 // this
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/system/mcu/mcu.hpp>
 
 // xmcu
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/wait_until.hpp>
 
 namespace {
 constexpr std::uint32_t hclk_dividers[] = { 1u, 3u, 5u, 1u, 1u, 6u, 10u, 32u, 2u, 4u, 8u, 16u, 64u, 128u, 256u, 512u };
@@ -18,13 +18,13 @@ constexpr std::uint32_t pclk_dividers[] = { 2u, 4u, 8u, 16u };
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 
 using namespace xmcu;
-using namespace xmcu::soc::m0::stm32l0::rm0451::sources;
-using namespace xmcu::soc::m0::stm32l0::rm0451::system;
-using namespace xmcu::soc::m0::stm32l0::rm0451::utils;
+using namespace xmcu::soc::m0::l0::rm0451::sources;
+using namespace xmcu::soc::m0::l0::rm0451::system;
+using namespace xmcu::soc::m0::l0::rm0451::utils;
 
 void rcc<mcu<1u>>::hclk<1u>::set(Prescaler a_prescaler)
 {
@@ -195,7 +195,7 @@ template<> void rcc<mcu<1u>>::set_wakeup_clock_source<hsi16>()
 }
 
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu

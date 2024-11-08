@@ -4,16 +4,16 @@
  */
 
 // this
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/SPI/SPI.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/SPI/SPI.hpp>
 
 // xmcu
 #include <xmcu/bit.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/wait_until.hpp>
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m0::stm32l0::rm0451::peripherals;
-using namespace xmcu::soc::m0::stm32l0::rm0451::utils;
+using namespace xmcu::soc::m0::l0::rm0451::peripherals;
+using namespace xmcu::soc::m0::l0::rm0451::utils;
 
 void enable(SPI_TypeDef* a_p_registers)
 {
@@ -79,7 +79,7 @@ SPI::Polling::Result receive(SPI_TypeDef* a_p_registers, data_t* a_p_data, std::
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 namespace peripherals {
 
@@ -105,7 +105,7 @@ SPI::Polling::Result SPI::Polling::receive(Not_null<std::uint8_t*> a_p_data, std
 
 } // namespace peripherals
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu
@@ -113,10 +113,10 @@ SPI::Polling::Result SPI::Polling::receive(Not_null<std::uint8_t*> a_p_data, std
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 using namespace xmcu;
-using namespace xmcu::soc::m0::stm32l0::rm0451::sources;
+using namespace xmcu::soc::m0::l0::rm0451::sources;
 
 template<> template<> void rcc<peripherals::SPI, 1u>::enable<hsi16>(bool a_enable_in_lp)
 {
@@ -138,7 +138,7 @@ template<> void rcc<peripherals::SPI, 1>::disable()
 }
 
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu

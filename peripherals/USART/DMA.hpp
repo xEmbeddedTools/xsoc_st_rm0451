@@ -17,16 +17,16 @@
 #include <xmcu/Not_null.hpp>
 #include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/DMA.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/USART/LPUART.hpp>
-#include <xmcu/soc/ST/arm/m0/stm32l0/rm0451/peripherals/USART/USART.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/DMA.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/USART/LPUART.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/USART/USART.hpp>
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m0 {
-namespace stm32l0 {
+namespace l0 {
 namespace rm0451 {
 template<> class DMA<peripherals::USART> : private Non_copyable
 {
@@ -421,7 +421,7 @@ private:
 };
 
 } // namespace rm0451
-} // namespace stm32l0
+} // namespace l0
 } // namespace m0
 } // namespace soc
 } // namespace xmcu
@@ -429,25 +429,25 @@ private:
 namespace xmcu {
 namespace soc {
 
-template<> class peripheral<m0::stm32l0::rm0451::peripherals::LPUART, 1u, m0::stm32l0::rm0451::DMA<>, 1u>
+template<> class peripheral<m0::l0::rm0451::peripherals::LPUART, 1u, m0::l0::rm0451::DMA<>, 1u>
     : private non_constructible
 {
 public:
-    static m0::stm32l0::rm0451::DMA<m0::stm32l0::rm0451::peripherals::LPUART> create()
+    static m0::l0::rm0451::DMA<m0::l0::rm0451::peripherals::LPUART> create()
     {
-        return m0::stm32l0::rm0451::DMA<m0::stm32l0::rm0451::peripherals::LPUART>(
-            0x0u, DMA1, LPUART1, m0::stm32l0::rm0451::DMA<>::Request::lpuart1);
+        return m0::l0::rm0451::DMA<m0::l0::rm0451::peripherals::LPUART>(
+            0x0u, DMA1, LPUART1, m0::l0::rm0451::DMA<>::Request::lpuart1);
     }
 };
 
-template<> class peripheral<m0::stm32l0::rm0451::peripherals::USART, 2u, m0::stm32l0::rm0451::DMA<>, 1u>
+template<> class peripheral<m0::l0::rm0451::peripherals::USART, 2u, m0::l0::rm0451::DMA<>, 1u>
     : private non_constructible
 {
 public:
-    static constexpr m0::stm32l0::rm0451::DMA<m0::stm32l0::rm0451::peripherals::USART> create()
+    static constexpr m0::l0::rm0451::DMA<m0::l0::rm0451::peripherals::USART> create()
     {
-        return m0::stm32l0::rm0451::DMA<m0::stm32l0::rm0451::peripherals::USART>(
-            0x0u, DMA1, USART2, m0::stm32l0::rm0451::DMA<>::Request::usart2);
+        return m0::l0::rm0451::DMA<m0::l0::rm0451::peripherals::USART>(
+            0x0u, DMA1, USART2, m0::l0::rm0451::DMA<>::Request::usart2);
     }
 };
 
