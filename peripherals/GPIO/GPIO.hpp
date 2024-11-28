@@ -19,7 +19,9 @@
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/GPIO/gpio_ll.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/rcc.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/hse.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/msi.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
@@ -27,12 +29,7 @@
 // debug
 #include <xmcu/assertion.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals {
 class GPIO : private Non_copyable
 {
 public:
@@ -507,18 +504,9 @@ constexpr GPIO::Interrupt::Trigger_flag operator|=(GPIO::Interrupt::Trigger_flag
     a_f1 = a_f1 | a_f2;
     return a_f1;
 }
-} // namespace peripherals
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
+namespace xmcu::soc::st::arm::m0::l0::rm0451 {
 template<std::uint32_t id> class rcc<peripherals::GPIO, id> : private xmcu::non_constructible
 {
 public:
@@ -552,49 +540,43 @@ template<>
 void peripherals::GPIO::Alternate_function::enable<peripherals::GPIO::lsco>(Limited<std::uint32_t, 0, 15> a_id,
                                                                             const Enable_config& a_config,
                                                                             Pin* a_p_pin);
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451
 
-namespace xmcu {
-namespace soc {
+namespace xmcu::soc {
 
 #if defined(XMCU_GPIOA_PRESENT)
-template<> class peripheral<m0::l0::rm0451::peripherals::GPIO, 1u> : private xmcu::non_constructible
+template<> class peripheral<st::arm::m0::l0::rm0451::peripherals::GPIO, 1u> : private xmcu::non_constructible
 {
 public:
-    static m0::l0::rm0451::peripherals::GPIO create()
+    static st::arm::m0::l0::rm0451::peripherals::GPIO create()
     {
-        namespace l0_peripherals = m0::l0::rm0451::peripherals;
+        namespace l0_peripherals = st::arm::m0::l0::rm0451::peripherals;
         return l0_peripherals::GPIO(0u, l0_peripherals::ll::gpio::registers<l0_peripherals::ll::gpio::A>());
     }
 };
 #endif
 
 #if defined(XMCU_GPIOB_PRESENT)
-template<> class peripheral<m0::l0::rm0451::peripherals::GPIO, 2u> : private xmcu::non_constructible
+template<> class peripheral<st::arm::m0::l0::rm0451::peripherals::GPIO, 2u> : private xmcu::non_constructible
 {
 public:
-    static m0::l0::rm0451::peripherals::GPIO create()
+    static st::arm::m0::l0::rm0451::peripherals::GPIO create()
     {
-        namespace l0_peripherals = m0::l0::rm0451::peripherals;
+        namespace l0_peripherals = st::arm::m0::l0::rm0451::peripherals;
         return l0_peripherals::GPIO(1u, l0_peripherals::ll::gpio::registers<l0_peripherals::ll::gpio::B>());
     }
 };
 #endif
 
 #if defined(XMCU_GPIOC_PRESENT)
-template<> class peripheral<m0::l0::rm0451::peripherals::GPIO, 3u> : private xmcu::non_constructible
+template<> class peripheral<st::arm::m0::l0::rm0451::peripherals::GPIO, 3u> : private xmcu::non_constructible
 {
 public:
-    static m0::l0::rm0451::peripherals::GPIO create()
+    static st::arm::m0::l0::rm0451::peripherals::GPIO create()
     {
-        namespace l0_peripherals = m0::l0::rm0451::peripherals;
+        namespace l0_peripherals = st::arm::m0::l0::rm0451::peripherals;
         return l0_peripherals::GPIO(2u, l0_peripherals::ll::gpio::registers<l0_peripherals::ll::gpio::C>());
     }
 };
 #endif
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc

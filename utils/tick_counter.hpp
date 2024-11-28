@@ -17,13 +17,7 @@
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/hsi16.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/system/mcu/mcu.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace utils {
-
+namespace xmcu::soc::st::arm::m0::l0::rm0451::utils {
 template<typename Period_t> class tick_counter : private non_constructible
 {
 };
@@ -39,8 +33,8 @@ public:
         void* p_user_data = nullptr;
     };
 
-    template<typename Timer_t, typename Clock_t = void>
-    static void enable(Timer_t* a_p_timer, const xmcu::soc::IRQ_config& a_irq_config, std::uint64_t a_start_cnt) = delete;
+    template<typename Timer_t, typename Clock_t = void> static void
+    enable(Timer_t* a_p_timer, const xmcu::soc::IRQ_config& a_irq_config, std::uint64_t a_start_cnt) = delete;
     template<typename Timer_t> static void disable() = delete;
 
     template<typename Timer_t> static void start(bool a_call_handler_on_start) = delete;
@@ -55,8 +49,8 @@ public:
 private:
     static void update(void*);
 
-    static inline volatile std::uint64_t cnt     = 0u;
-    static inline void* p_timer                  = nullptr;
+    static inline volatile std::uint64_t cnt = 0u;
+    static inline void* p_timer = nullptr;
     static inline std::uint32_t ticks_per_period = 0u;
 
     static Callback callback;
@@ -71,10 +65,4 @@ template<> void tick_counter<Milliseconds>::disable<soc::Systick>();
 template<> void tick_counter<Milliseconds>::start<Systick>(bool a_start_handler_immediately);
 
 template<> void tick_counter<Milliseconds>::stop<Systick>();
-
-} // namespace utils
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::utils

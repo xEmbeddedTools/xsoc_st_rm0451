@@ -14,13 +14,7 @@
 #define XMCU_SOC_STM32L010F4P6 17648494870528054
 #define XMCU_SOC_STM32L010C6T6 17648494867548454
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace peripherals {
-
+namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals {
 #if (XMCU_SOC_MODEL == XMCU_SOC_STM32L010F4P6)
 #define XMCU_GPIOA_PRESENT
 #define XMCU_GPIOB_PRESENT
@@ -160,7 +154,6 @@ public:
         return false;
     }
 
-
     friend constexpr bool operator==(gpio_base::B, gpio_base::A)
     {
         return false;
@@ -201,10 +194,4 @@ public:
     }
 };
 #endif
-
-} // namespace peripherals
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals

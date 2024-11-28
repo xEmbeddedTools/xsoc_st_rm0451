@@ -18,13 +18,7 @@
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/msi.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/system/mcu/mcu.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace system {
-
+namespace xmcu::soc::st::arm::m0::l0::rm0451::system {
 template<typename MCU_t> class pwr : private non_constructible
 {
 };
@@ -67,16 +61,9 @@ public:
 
     static Voltage_scaling get_voltage_scaling();
 };
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::system
 
-} // namespace system
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
-
-namespace xmcu::soc::m0::l0::rm0451 {
-
+namespace xmcu::soc::st::arm::m0::l0::rm0451 {
 template<> class rcc<system::pwr<system::mcu<1u>>> : private non_constructible
 {
 public:
@@ -89,5 +76,4 @@ public:
         bit::flag::clear(&RCC->APB1ENR, RCC_APB1ENR_PWREN);
     }
 };
-
-} // namespace xmcu::soc::m0::l0::rm0451
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451

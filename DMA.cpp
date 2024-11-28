@@ -10,7 +10,7 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m0::l0::rm0451;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451;
 
 DMA<>::Callback* p_callbacks[DMA<>::channel_count] = { nullptr };
 
@@ -18,8 +18,8 @@ DMA<>::Event_flag get_Event_flag_and_clear(DMA_TypeDef* a_p_DMA_registers,
                                            DMA_Channel_TypeDef* a_p_channel_registers,
                                            std::size_t a_channel_idx)
 {
-    DMA<>::Event_flag ret        = DMA<>::Event_flag::none;
-    const std::uint32_t isr      = a_p_DMA_registers->ISR;
+    DMA<>::Event_flag ret = DMA<>::Event_flag::none;
+    const std::uint32_t isr = a_p_DMA_registers->ISR;
     std::uint32_t channel_offset = a_channel_idx * 4;
 
     if (true == bit::is(isr, DMA_ISR_TCIF1_Pos + channel_offset))
@@ -59,9 +59,9 @@ void shared_dma_int_handler(std::uint32_t a_start, std::uint32_t a_end)
 {
     for (std::uint32_t i = a_start; i <= a_end; ++i)
     {
-        std::uint32_t channel_id                = i - 1;
+        std::uint32_t channel_id = i - 1;
         DMA_Channel_TypeDef* p_dma_channel_regs = ((DMA_Channel_TypeDef*)(DMA1_Channel1_BASE + 20 * channel_id));
-        DMA<>::Event_flag event_flags           = get_Event_flag_and_clear(DMA1, p_dma_channel_regs, channel_id);
+        DMA<>::Event_flag event_flags = get_Event_flag_and_clear(DMA1, p_dma_channel_regs, channel_id);
         if (event_flags != DMA<>::Event_flag::none)
         {
             hkm_assert(nullptr != p_callbacks[channel_id]);
@@ -102,12 +102,8 @@ void DMA1_Channel4_5_6_7_IRQHandler()
 #endif
 }
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-using namespace xmcu::soc::m0::l0::rm0451::peripherals;
+namespace xmcu::soc::st::arm::m0::l0::rm0451 {
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals;
 
 void DMA<USART>::Receiver::Interrupt::set_context()
 {
@@ -164,9 +160,4 @@ void DMA<LPUART>::Transmitter::Interrupt::clear_context()
     hkm_assert(dma_channel < DMA<>::channel_count);
     p_callbacks[static_cast<std::uint32_t>(this->p_DMA->tx_channel)] = nullptr;
 }
-
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451

@@ -9,13 +9,7 @@
 #include <xmcu/Duration.hpp>
 #include <xmcu/non_constructible.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace utils {
-
+namespace xmcu::soc::st::arm::m0::l0::rm0451::utils {
 class delay : private xmcu::non_constructible
 {
 public:
@@ -23,10 +17,4 @@ public:
     static void wait(xmcu::Seconds a_time);
     static void wait(xmcu::Microseconds a_time);
 };
-
-} // namespace utils
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::utils

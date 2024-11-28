@@ -17,18 +17,12 @@
 #include <xmcu/Not_null.hpp>
 #include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
-#include <xmcu/soc/ST/arm/m0/nvic.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/defs.hpp>
+#include <xmcu/soc/ST/arm/m0/nvic.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 #include <xmcu/various.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace peripherals {
-
+namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals {
 class internal_flash : private non_constructible
 {
 public:
@@ -156,33 +150,27 @@ public:
     }
 };
 
-} // namespace peripherals
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals
 
-namespace xmcu {
-namespace soc {
-template<> class Scoped_guard<m0::l0::rm0451::peripherals::internal_flash::unlocker> : private Non_copyable
+namespace xmcu::soc {
+template<> class Scoped_guard<st::arm::m0::l0::rm0451::peripherals::internal_flash::unlocker> : private Non_copyable
 {
 public:
     Scoped_guard()
         : unlocked(false)
     {
-        m0::l0::rm0451::peripherals::internal_flash::unlocker::unlock();
+        st::arm::m0::l0::rm0451::peripherals::internal_flash::unlocker::unlock();
         this->unlocked = true;
     }
 
     Scoped_guard(Milliseconds a_timeout)
-        : unlocked(m0::l0::rm0451::peripherals::internal_flash::unlocker::unlock(a_timeout))
+        : unlocked(st::arm::m0::l0::rm0451::peripherals::internal_flash::unlocker::unlock(a_timeout))
     {
     }
 
     ~Scoped_guard()
     {
-        m0::l0::rm0451::peripherals::internal_flash::unlocker::lock();
+        st::arm::m0::l0::rm0451::peripherals::internal_flash::unlocker::lock();
     }
 
     bool is_unlocked() const
@@ -193,24 +181,25 @@ public:
 private:
     bool unlocked;
 };
-template<> class Scoped_guard<m0::l0::rm0451::peripherals::internal_flash::cache_disabler> : private Non_copyable
+template<> class Scoped_guard<st::arm::m0::l0::rm0451::peripherals::internal_flash::cache_disabler>
+    : private Non_copyable
 {
 public:
     Scoped_guard()
         : disabled(false)
     {
-        m0::l0::rm0451::peripherals::internal_flash::cache_disabler::disable();
+        st::arm::m0::l0::rm0451::peripherals::internal_flash::cache_disabler::disable();
         this->disabled = true;
     }
 
     Scoped_guard(Milliseconds a_timeout)
-        : disabled(m0::l0::rm0451::peripherals::internal_flash::cache_disabler::disable(a_timeout))
+        : disabled(st::arm::m0::l0::rm0451::peripherals::internal_flash::cache_disabler::disable(a_timeout))
     {
     }
 
     ~Scoped_guard()
     {
-        m0::l0::rm0451::peripherals::internal_flash::cache_disabler::enable();
+        st::arm::m0::l0::rm0451::peripherals::internal_flash::cache_disabler::enable();
     }
 
     bool is_disabled() const
@@ -221,5 +210,4 @@ public:
 private:
     bool disabled;
 };
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc

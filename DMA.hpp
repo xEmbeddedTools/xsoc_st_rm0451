@@ -19,11 +19,7 @@
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/rcc.hpp>
 #include <xmcu/various.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
+namespace xmcu::soc::st::arm::m0::l0::rm0451 {
 
 template<typename Perihperal_t = void*> class DMA : private xmcu::Non_copyable
 {
@@ -116,8 +112,4 @@ public:
     }
 };
 
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451

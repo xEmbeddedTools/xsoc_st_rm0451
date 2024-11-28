@@ -23,11 +23,7 @@
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
+namespace xmcu::soc::st::arm::m0::l0::rm0451 {
 template<> class DMA<peripherals::USART> : private Non_copyable
 {
 public:
@@ -419,37 +415,28 @@ private:
 
     template<typename Periph_t, std::size_t id> friend class xmcu::soc::peripheral;
 };
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451
 
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
-
-namespace xmcu {
-namespace soc {
-
-template<> class peripheral<m0::l0::rm0451::peripherals::LPUART, 1u, m0::l0::rm0451::DMA<>, 1u>
+namespace xmcu::soc {
+template<> class peripheral<st::arm::m0::l0::rm0451::peripherals::LPUART, 1u, st::arm::m0::l0::rm0451::DMA<>, 1u>
     : private non_constructible
 {
 public:
-    static m0::l0::rm0451::DMA<m0::l0::rm0451::peripherals::LPUART> create()
+    static st::arm::m0::l0::rm0451::DMA<st::arm::m0::l0::rm0451::peripherals::LPUART> create()
     {
-        return m0::l0::rm0451::DMA<m0::l0::rm0451::peripherals::LPUART>(
-            0x0u, DMA1, LPUART1, m0::l0::rm0451::DMA<>::Request::lpuart1);
+        return st::arm::m0::l0::rm0451::DMA<st::arm::m0::l0::rm0451::peripherals::LPUART>(
+            0x0u, DMA1, LPUART1, st::arm::m0::l0::rm0451::DMA<>::Request::lpuart1);
     }
 };
 
-template<> class peripheral<m0::l0::rm0451::peripherals::USART, 2u, m0::l0::rm0451::DMA<>, 1u>
+template<> class peripheral<st::arm::m0::l0::rm0451::peripherals::USART, 2u, st::arm::m0::l0::rm0451::DMA<>, 1u>
     : private non_constructible
 {
 public:
-    static constexpr m0::l0::rm0451::DMA<m0::l0::rm0451::peripherals::USART> create()
+    static constexpr st::arm::m0::l0::rm0451::DMA<st::arm::m0::l0::rm0451::peripherals::USART> create()
     {
-        return m0::l0::rm0451::DMA<m0::l0::rm0451::peripherals::USART>(
-            0x0u, DMA1, USART2, m0::l0::rm0451::DMA<>::Request::usart2);
+        return st::arm::m0::l0::rm0451::DMA<st::arm::m0::l0::rm0451::peripherals::USART>(
+            0x0u, DMA1, USART2, st::arm::m0::l0::rm0451::DMA<>::Request::usart2);
     }
 };
-
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc

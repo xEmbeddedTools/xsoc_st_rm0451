@@ -11,16 +11,10 @@
 // hkm
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/Not_null.hpp>
-#include <xmcu/various.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/USART/USART.hpp>
+#include <xmcu/various.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace peripherals {
-
+namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals {
 class LPUART : private Non_copyable
 {
 public:
@@ -87,22 +81,14 @@ public:
 
         Result transmit(Not_null<const uint8_t*> a_p_data, std::size_t a_data_size_in_words);
         Result transmit(Not_null<const uint16_t*> a_p_data, std::size_t a_data_size_in_words);
-        Result transmit(Not_null<const uint8_t*> a_p_data,
-                        std::size_t a_data_size_in_words,
-                        Milliseconds a_timeout);
-        Result transmit(Not_null<const uint16_t*> a_p_data,
-                        std::size_t a_data_size_in_words,
-                        Milliseconds a_timeout);
+        Result transmit(Not_null<const uint8_t*> a_p_data, std::size_t a_data_size_in_words, Milliseconds a_timeout);
+        Result transmit(Not_null<const uint16_t*> a_p_data, std::size_t a_data_size_in_words, Milliseconds a_timeout);
 
         Result receive(Not_null<std::uint8_t*> a_p_data, std::size_t a_data_size_in_words);
         Result receive(Not_null<std::uint16_t*> a_p_data, std::size_t a_data_size_in_words);
 
-        Result receive(Not_null<std::uint8_t*> a_p_data,
-                       std::size_t a_data_size_in_words,
-                       Milliseconds a_timeout);
-        Result receive(Not_null<std::uint16_t*> a_p_data,
-                       std::size_t a_data_size_in_words,
-                       Milliseconds a_timeout);
+        Result receive(Not_null<std::uint8_t*> a_p_data, std::size_t a_data_size_in_words, Milliseconds a_timeout);
+        Result receive(Not_null<std::uint16_t*> a_p_data, std::size_t a_data_size_in_words, Milliseconds a_timeout);
 
         template<typename t_Type> std::uint32_t transmit_2(const t_Type& a_data)
         {
@@ -110,8 +96,7 @@ public:
             const auto itr_end = std::end(a_data);
             auto itr = itr_begin;
 
-            bit::flag::set(&(this->p_LPUART->p_registers->ICR),
-                                  USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
+            bit::flag::set(&(this->p_LPUART->p_registers->ICR), USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
 
             while (itr != itr_end &&
                    false == bit::is_any(this->p_LPUART->p_registers->ISR, USART_ISR_PE | USART_ISR_NE))
@@ -137,8 +122,7 @@ public:
             const auto itr_end = std::end(a_first);
             auto itr = itr_begin;
 
-            bit::flag::set(&(this->p_LPUART->p_registers->ICR),
-                                  USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
+            bit::flag::set(&(this->p_LPUART->p_registers->ICR), USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
 
             while (itr != itr_end &&
                    false == bit::is_any(this->p_LPUART->p_registers->ISR, USART_ISR_PE | USART_ISR_NE))
@@ -160,15 +144,13 @@ public:
 
         template<typename t_Type> std::uint32_t transmit_2(Milliseconds a_timeout, const t_Type& a_data)
         {
-            const std::uint64_t timeout_end_timestamp =
-                utils::tick_counter<Milliseconds>::get() + a_timeout.get();
+            const std::uint64_t timeout_end_timestamp = utils::tick_counter<Milliseconds>::get() + a_timeout.get();
 
             const auto itr_begin = std::begin(a_data);
             const auto itr_end = std::end(a_data);
             auto itr = itr_begin;
 
-            bit::flag::set(&(this->p_LPUART->p_registers->ICR),
-                                  USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
+            bit::flag::set(&(this->p_LPUART->p_registers->ICR), USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
 
             while (itr != itr_end &&
                    false == bit::is_any(this->p_LPUART->p_registers->ISR, USART_ISR_PE | USART_ISR_NE) &&
@@ -198,8 +180,7 @@ public:
             const auto itr_end = std::end(a_first);
             auto itr = itr_begin;
 
-            bit::flag::set(&(this->p_LPUART->p_registers->ICR),
-                                  USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
+            bit::flag::set(&(this->p_LPUART->p_registers->ICR), USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
 
             while (itr != itr_end &&
                    false == bit::is_any(this->p_LPUART->p_registers->ISR, USART_ISR_PE | USART_ISR_NE) &&
@@ -411,19 +392,9 @@ operator|(LPUART::Transceiving_config::RS232_flow_control_flag a_f1,
                                                                              static_cast<std::uint32_t>(a_f2));
 }
 
-} // namespace peripherals
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-
+namespace xmcu::soc::st::arm::m0::l0::rm0451 {
 template<std::uint32_t id> class rcc<peripherals::LPUART, id> : private non_constructible
 {
 public:
@@ -436,10 +407,10 @@ template<> template<> void rcc<peripherals::LPUART, 1u>::enable<sources::hsi16>(
 // template<> template<> void rcc<peripherals::LPUART, 1u>::enable<sources::lse>(bool a_enable_in_lp);
 template<> void rcc<peripherals::LPUART, 1u>::disable();
 
-template<> inline void
-peripherals::GPIO::Alternate_function::enable<peripherals::LPUART, 1>(Limited<std::uint32_t, 0, 15> a_id,
-                                                                      const Enable_config& a_config,
-                                                                      Pin* a_p_pin)
+template<>
+inline void peripherals::GPIO::Alternate_function::enable<peripherals::LPUART, 1>(Limited<std::uint32_t, 0, 15> a_id,
+                                                                                  const Enable_config& a_config,
+                                                                                  Pin* a_p_pin)
 {
 #if defined(STM32L010F4P6)
     hkm_assert((0u == this->p_port->idx && (4u >= a_id || 13u == a_id || 14u == a_id)) ||
@@ -450,21 +421,15 @@ peripherals::GPIO::Alternate_function::enable<peripherals::LPUART, 1>(Limited<st
     // TODO: add alternate function support for rts/cts pins?
 }
 
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451
 
-namespace xmcu {
-namespace soc {
-template<> class peripheral<m0::l0::rm0451::peripherals::LPUART, 1u> : private non_constructible
+namespace xmcu::soc {
+template<> class peripheral<st::arm::m0::l0::rm0451::peripherals::LPUART, 1u> : private non_constructible
 {
 public:
-    static m0::l0::rm0451::peripherals::LPUART create()
+    static st::arm::m0::l0::rm0451::peripherals::LPUART create()
     {
-        return m0::l0::rm0451::peripherals::LPUART(0u, LPUART1, IRQn_Type::LPUART1_IRQn);
+        return st::arm::m0::l0::rm0451::peripherals::LPUART(0u, LPUART1, IRQn_Type::LPUART1_IRQn);
     }
 };
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc

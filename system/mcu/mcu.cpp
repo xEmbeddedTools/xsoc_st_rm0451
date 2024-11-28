@@ -15,16 +15,11 @@ constexpr std::uint32_t hclk_dividers[] = { 1u, 3u, 5u, 1u, 1u, 6u, 10u, 32u, 2u
 constexpr std::uint32_t pclk_dividers[] = { 2u, 4u, 8u, 16u };
 } // namespace
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-
+namespace xmcu::soc::st::arm::m0::l0::rm0451 {
 using namespace xmcu;
-using namespace xmcu::soc::m0::l0::rm0451::sources;
-using namespace xmcu::soc::m0::l0::rm0451::system;
-using namespace xmcu::soc::m0::l0::rm0451::utils;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::sources;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::system;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::utils;
 
 void rcc<mcu<1u>>::hclk<1u>::set(Prescaler a_prescaler)
 {
@@ -194,8 +189,4 @@ template<> void rcc<mcu<1u>>::set_wakeup_clock_source<hsi16>()
     bit::flag::set(&(RCC->CFGR), RCC_CFGR_STOPWUCK, RCC_CFGR_STOPWUCK);
 }
 
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451

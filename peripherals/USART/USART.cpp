@@ -8,9 +8,9 @@
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/USART/USART.hpp>
 
 // xmcu
-#include <xmcu/soc/ST/arm/m0/nvic.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/tick_counter.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/nvic.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
 // debug
@@ -18,9 +18,9 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m0;
-using namespace xmcu::soc::m0::l0::rm0451::peripherals;
-using namespace xmcu::soc::m0::l0::rm0451::utils;
+using namespace xmcu::soc::st::arm::m0;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::utils;
 
 constexpr std::uint32_t clock_prescaler_lut[] = { 1u, 2u, 4u, 6u, 8u, 10u, 12u, 16u, 32u, 64u, 128u, 256u };
 
@@ -622,12 +622,7 @@ void LPUART1_IRQHandler()
 }
 }
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals {
 using namespace xmcu;
 using namespace utils;
 
@@ -1121,21 +1116,12 @@ void LPUART::Interrupt::event_listening_stop()
 
     this->p_LPUART->event_callback = { .events = USART::Event_flag::none, .function = nullptr, .p_user_data = nullptr };
 }
-} // namespace peripherals
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-using namespace xmcu::soc::m0::l0::rm0451::peripherals;
-using namespace xmcu::soc::m0::l0::rm0451::sources;
-using namespace xmcu::soc::m0::l0::rm0451::system;
+namespace xmcu::soc::st::arm::m0::l0::rm0451 {
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::sources;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::system;
 
 template<> template<> void rcc<peripherals::USART, 2u>::enable<rcc<mcu<1u>>::pclk<2u>>(bool a_enable_in_lp)
 {
@@ -1261,9 +1247,4 @@ template<> void rcc<peripherals::LPUART, 1>::disable()
     bit::flag::clear(&(RCC->CCIPR), RCC_CCIPR_LPUART1SEL);
     bit::flag::clear(&(RCC->APB1ENR), RCC_APB1ENR_LPUART1EN);
 }
-
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451

@@ -7,17 +7,17 @@
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/Timer/LPTIM.hpp>
 
 // hkm
-#include <xmcu/various.hpp>
-#include <xmcu/soc/ST/arm/m0/nvic.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/tick_counter.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/nvic.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
+#include <xmcu/various.hpp>
 
 // debug
 #include <xmcu/assertion.hpp>
 
 namespace {
-using namespace xmcu::soc::m0::l0::rm0451::peripherals;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals;
 
 LPTIM* LPTIM_irq_context[1] = { nullptr };
 } // namespace
@@ -31,14 +31,9 @@ void LPTIM1_IRQHandler()
 }
 }
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m0::l0::rm0451::utils;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::utils;
 using namespace utils;
 
 void LPTIM_interrupt_handler(LPTIM* a_p_this)
@@ -71,7 +66,7 @@ void LPTIM::Tick_counter::enable(const Prescaler a_prescaler)
 
     this->p_LPTIM->p_registers->ICR = LPTIM_ICR_CMPMCF | LPTIM_ICR_ARRMCF | LPTIM_ICR_EXTTRIGCF | LPTIM_ICR_CMPOKCF |
                                       LPTIM_ICR_ARROKCF | LPTIM_ICR_UPCF | LPTIM_ICR_DOWNCF;
-    this->p_LPTIM->p_registers->CNT  = 0x0u;
+    this->p_LPTIM->p_registers->CNT = 0x0u;
     this->p_LPTIM->p_registers->CFGR = static_cast<std::uint32_t>(a_prescaler);
 }
 
@@ -155,21 +150,12 @@ void LPTIM::Tick_counter::Interrupt::unregister_callback()
 
     this->p_LPTIM->tick_counter_callback = { nullptr, nullptr };
 }
-} // namespace peripherals
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-using namespace xmcu::soc::m0::l0::rm0451::peripherals;
-using namespace xmcu::soc::m0::l0::rm0451::sources;
-using namespace xmcu::soc::m0::l0::rm0451::system;
+namespace xmcu::soc::st::arm::m0::l0::rm0451 {
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::sources;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::system;
 
 template<> template<> void rcc<LPTIM, 1>::enable<rcc<mcu<1u>>::pclk<1u>>(bool a_enable_in_lp)
 {
@@ -199,9 +185,4 @@ template<> template<> void rcc<peripherals::LPTIM, 1>::enable<hsi16>(bool a_enab
         bit::flag::clear(&(RCC->APB1SMENR), RCC_APB1SMENR_LPTIM1SMEN);
     }
 }
-
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451
