@@ -8,18 +8,14 @@
 // std
 #include <cstdint>
 
+// soc
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/config.hpp>
+
 // xmcu
 #include <xmcu/non_constructible.hpp>
 
-#define XMCU_SOC_STM32L010F4P6 17648494870528054
-#define XMCU_SOC_STM32L010C6T6 17648494867548454
-
 namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals {
-#if (XMCU_SOC_MODEL == XMCU_SOC_STM32L010F4P6)
-#define XMCU_GPIOA_PRESENT
-#define XMCU_GPIOB_PRESENT
-#define XMCU_GPIOC_PRESENT
-
+#if defined(XMCU_SOC_MODEL_STM32L010F4P6)
 struct gpio_base : private non_constructible
 {
 public:
@@ -50,42 +46,9 @@ public:
         _14_OSC32_IN,
         _15_OSC32_OUT
     };
-
-public:
-    friend constexpr bool operator==(gpio_base::A, gpio_base::B)
-    {
-        return false;
-    }
-    friend constexpr bool operator==(gpio_base::A, gpio_base::C)
-    {
-        return false;
-    }
-
-    friend constexpr bool operator==(gpio_base::B, gpio_base::A)
-    {
-        return false;
-    }
-    friend constexpr bool operator==(gpio_base::B, gpio_base::C)
-    {
-        return false;
-    }
-
-    friend constexpr bool operator==(gpio_base::C, gpio_base::A)
-    {
-        return false;
-    }
-    friend constexpr bool operator==(gpio_base::C, gpio_base::B)
-    {
-        return false;
-    }
 };
 #endif
-#if (XMCU_SOC_MODEL == XMCU_SOC_STM32L010C6T6)
-#define XMCU_GPIOA_PRESENT
-#define XMCU_GPIOB_PRESENT
-#define XMCU_GPIOC_PRESENT
-#define XMCU_GPIOH_PRESENT
-
+#if defined(XMCU_SOC_MODEL_STM32L010C6T6)
 struct gpio_base : private non_constructible
 {
 public:
@@ -139,59 +102,78 @@ public:
         _0_OSC_IN,
         _1_OSC_OUT,
     };
-
-public:
-    friend constexpr bool operator==(gpio_base::A, gpio_base::B)
-    {
-        return false;
-    }
-    friend constexpr bool operator==(gpio_base::A, gpio_base::C)
-    {
-        return false;
-    }
-    friend constexpr bool operator==(gpio_base::A, gpio_base::H)
-    {
-        return false;
-    }
-
-    friend constexpr bool operator==(gpio_base::B, gpio_base::A)
-    {
-        return false;
-    }
-    friend constexpr bool operator==(gpio_base::B, gpio_base::C)
-    {
-        return false;
-    }
-    friend constexpr bool operator==(gpio_base::B, gpio_base::H)
-    {
-        return false;
-    }
-
-    friend constexpr bool operator==(gpio_base::C, gpio_base::A)
-    {
-        return false;
-    }
-    friend constexpr bool operator==(gpio_base::C, gpio_base::B)
-    {
-        return false;
-    }
-    friend constexpr bool operator==(gpio_base::C, gpio_base::H)
-    {
-        return false;
-    }
-
-    friend constexpr bool operator==(gpio_base::H, gpio_base::A)
-    {
-        return false;
-    }
-    friend constexpr bool operator==(gpio_base::H, gpio_base::B)
-    {
-        return false;
-    }
-    friend constexpr bool operator==(gpio_base::H, gpio_base::C)
-    {
-        return false;
-    }
 };
+#endif
+#if defined(XMCU_GPIOA_PRESENT) && defined(XMCU_GPIOB_PRESENT)
+constexpr bool operator==(gpio_base::A, gpio_base::B)
+{
+    return false;
+}
+#endif
+#if defined(XMCU_GPIOA_PRESENT) && defined(XMCU_GPIOC_PRESENT)
+constexpr bool operator==(gpio_base::A, gpio_base::C)
+{
+    return false;
+}
+#endif
+#if defined(XMCU_GPIOA_PRESENT) && defined(XMCU_GPIOH_PRESENT)
+constexpr bool operator==(gpio_base::A, gpio_base::H)
+{
+    return false;
+}
+#endif
+#if defined(XMCU_GPIOB_PRESENT) && defined(XMCU_GPIOA_PRESENT)
+constexpr bool operator==(gpio_base::B, gpio_base::A)
+{
+    return false;
+}
+#endif
+#if defined(XMCU_GPIOB_PRESENT) && defined(XMCU_GPIOC_PRESENT)
+constexpr bool operator==(gpio_base::B, gpio_base::C)
+{
+    return false;
+}
+#endif
+#if defined(XMCU_GPIOB_PRESENT) && defined(XMCU_GPIOH_PRESENT)
+constexpr bool operator==(gpio_base::B, gpio_base::H)
+{
+    return false;
+}
+#endif
+#if defined(XMCU_GPIOC_PRESENT) && defined(XMCU_GPIOA_PRESENT)
+constexpr bool operator==(gpio_base::C, gpio_base::A)
+{
+    return false;
+}
+#endif
+#if defined(XMCU_GPIOC_PRESENT) && defined(XMCU_GPIOB_PRESENT)
+constexpr bool operator==(gpio_base::C, gpio_base::B)
+{
+    return false;
+}
+#endif
+#if defined(XMCU_GPIOC_PRESENT) && defined(XMCU_GPIOH_PRESENT)
+constexpr bool operator==(gpio_base::C, gpio_base::H)
+{
+    return false;
+}
+#endif
+#if defined(XMCU_GPIOH_PRESENT) && defined(XMCU_GPIOA_PRESENT)
+constexpr bool operator==(gpio_base::H, gpio_base::A)
+{
+    return false;
+}
+#endif
+#if defined(XMCU_GPIOH_PRESENT) && defined(XMCU_GPIOB_PRESENT)
+constexpr bool operator==(gpio_base::H, gpio_base::B)
+{
+    return false;
+}
+#endif
+#if defined(XMCU_GPIOH_PRESENT) && defined(XMCU_GPIOC_PRESENT)
+constexpr bool operator==(gpio_base::H, gpio_base::C)
+{
+    return false;
+}
 #endif
 } // namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals
