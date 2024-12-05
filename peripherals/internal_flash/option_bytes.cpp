@@ -11,10 +11,10 @@
 
 // xmcu
 #include <xmcu/bit.hpp>
-#include <xmcu/soc/ST/arm/m0/nvic.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/internal_flash/internal_flash.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/tick_counter.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/nvic.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
 namespace {
@@ -42,15 +42,10 @@ constexpr std::uint32_t OB_BASE_ADDRESS_SLOT_3 = OB_BASE_ADDRESS_SLOT_2 + 4u;
 constexpr std::uint32_t OB_BASE_ADDRESS_SLOT_4 = OB_BASE_ADDRESS_SLOT_3 + 4u;
 } // namespace
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m0::l0::rm0451::utils;
-using namespace xmcu::soc::m0::l0::rm0451::system;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::utils;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::system;
 
 void option_bytes::reload()
 {
@@ -147,9 +142,4 @@ std::uint32_t option_bytes::USER::get()
     Scoped_guard<internal_flash::unlocker> flash_guard;
     return bit::flag::get(FLASH->OPTR, FLASH_OPTR_nRST_STOP | FLASH_OPTR_nRST_STDBY | FLASH_OPTR_IWDG_SW);
 }
-} // namespace peripherals
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals

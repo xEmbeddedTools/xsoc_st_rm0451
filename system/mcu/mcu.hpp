@@ -20,12 +20,7 @@
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/hsi16.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/msi.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace system {
+namespace xmcu::soc::st::arm::m0::l0::rm0451::system {
 template<std::size_t id> class mcu : private non_constructible
 {
 };
@@ -97,18 +92,9 @@ public:
         return static_cast<std::uint32_t>((*(reinterpret_cast<uint32_t*>(UID_BASE + 0x14))));
     }
 };
-} // namespace system
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::system
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
+namespace xmcu::soc::st::arm::m0::l0::rm0451 {
 template<> class rcc<system::mcu<1u>> : private non_constructible
 {
 public:
@@ -210,8 +196,4 @@ template<> bool rcc<system::mcu<1>>::is_system_clock_source<sources::hse>();
 template<> void rcc<system::mcu<1u>>::set_wakeup_clock_source<sources::msi>();
 template<> void rcc<system::mcu<1u>>::set_wakeup_clock_source<sources::hsi16>();
 
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451

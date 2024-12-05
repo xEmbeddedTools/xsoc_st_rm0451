@@ -16,14 +16,9 @@ namespace {
 constexpr std::uint32_t hse_control_unlock_key = 0xCAFECAFEu;
 }
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace sources {
+namespace xmcu::soc::st::arm::m0::l0::rm0451::sources {
 using namespace xmcu;
-using namespace xmcu::soc::m0::l0::rm0451::utils;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::utils;
 
 void hse::enable()
 {
@@ -57,9 +52,4 @@ bool hse::disable(Milliseconds a_timeout)
         RCC->CR, RCC_CR_HSERDY, a_timeout.get() - (tick_counter<Milliseconds>::get() - start));
 }
 
-} // namespace sources
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::sources

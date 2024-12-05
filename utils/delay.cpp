@@ -17,14 +17,9 @@
 // debug
 #include <xmcu/assertion.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace utils {
+namespace xmcu::soc::st::arm::m0::l0::rm0451::utils {
 using namespace xmcu;
-using namespace xmcu::soc::m0::l0::rm0451::system;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::system;
 
 using tick = tick_counter<Milliseconds>;
 
@@ -42,10 +37,10 @@ void delay::wait(Seconds a_time)
 
 void delay::wait(Microseconds a_time)
 {
-    std::uint32_t now_ticks        = tick::get_current_period_ticks();
+    std::uint32_t now_ticks = tick::get_current_period_ticks();
     std::uint32_t ticks_per_period = tick::get_ticks_per_period();
-    std::uint32_t ticks_per_us     = ticks_per_period / 1000u;
-    std::uint32_t ticks_to_wait    = a_time.get() * ticks_per_us;
+    std::uint32_t ticks_per_us = ticks_per_period / 1000u;
+    std::uint32_t ticks_to_wait = a_time.get() * ticks_per_us;
     if (ticks_to_wait >= now_ticks)
     {
         // In this scenario, period counter will underflow, so wait two times: one for underflow, one for remaining
@@ -63,10 +58,4 @@ void delay::wait(Microseconds a_time)
         while ((act = tick::get_current_period_ticks()) >= end_ticks && act < now_ticks) continue;
     }
 }
-
-} // namespace utils
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::utils

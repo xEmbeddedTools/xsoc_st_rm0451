@@ -10,12 +10,7 @@
 #include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/tick_counter.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace utils {
+namespace xmcu::soc::st::arm::m0::l0::rm0451::utils {
 using namespace xmcu;
 
 void wait_until::all_bits_are_set(volatile const std::uint32_t& a_register, uint32_t a_mask)
@@ -46,7 +41,7 @@ void wait_until::any_bit_is_cleared(volatile const std::uint32_t& a_register, ui
 bool wait_until::all_bits_are_set(volatile const std::uint32_t& a_register, uint32_t a_mask, Milliseconds a_timeout)
 {
     const std::uint64_t timeout_end = tick_counter<Milliseconds>::get() + a_timeout.get();
-    bool status                     = false;
+    bool status = false;
 
     while (tick_counter<Milliseconds>::get() < timeout_end && false == status)
     {
@@ -62,7 +57,7 @@ bool wait_until::masked_bits_are_set(volatile const std::uint32_t& a_register,
                                      Milliseconds a_timeout)
 {
     const std::uint64_t timeout_end = tick_counter<Milliseconds>::get() + a_timeout.get();
-    bool status                     = false;
+    bool status = false;
 
     while (tick_counter<Milliseconds>::get() < timeout_end && false == status)
     {
@@ -75,7 +70,7 @@ bool wait_until::masked_bits_are_set(volatile const std::uint32_t& a_register,
 bool wait_until::any_bit_is_set(volatile const std::uint32_t& a_register, uint32_t a_mask, Milliseconds a_timeout)
 {
     const std::uint64_t timeout_end = tick_counter<Milliseconds>::get() + a_timeout.get();
-    bool status                     = false;
+    bool status = false;
 
     while (tick_counter<Milliseconds>::get() < timeout_end && false == status)
     {
@@ -88,7 +83,7 @@ bool wait_until::any_bit_is_set(volatile const std::uint32_t& a_register, uint32
 bool wait_until::all_bits_are_cleared(volatile const std::uint32_t& a_register, uint32_t a_mask, Milliseconds a_timeout)
 {
     const std::uint64_t timeout_end = tick_counter<Milliseconds>::get() + a_timeout.get();
-    bool status                     = false;
+    bool status = false;
 
     while (tick_counter<Milliseconds>::get() < timeout_end && false == status)
     {
@@ -101,7 +96,7 @@ bool wait_until::all_bits_are_cleared(volatile const std::uint32_t& a_register, 
 bool wait_until::any_bit_is_cleared(volatile const std::uint32_t& a_register, uint32_t a_mask, Milliseconds a_timeout)
 {
     const std::uint64_t timeout_end = tick_counter<Milliseconds>::get() + a_timeout.get();
-    bool status                     = false;
+    bool status = false;
 
     while (tick_counter<Milliseconds>::get() < timeout_end && status == false)
     {
@@ -110,10 +105,4 @@ bool wait_until::any_bit_is_cleared(volatile const std::uint32_t& a_register, ui
 
     return status;
 }
-
-} // namespace utils
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::utils

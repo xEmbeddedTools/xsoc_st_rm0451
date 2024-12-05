@@ -15,12 +15,7 @@
 #include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace sources {
+namespace xmcu::soc::st::arm::m0::l0::rm0451::sources {
 class hse : private non_constructible
 {
 public:
@@ -45,10 +40,4 @@ public:
         return 0u;
     }
 };
-
-} // namespace sources
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::sources

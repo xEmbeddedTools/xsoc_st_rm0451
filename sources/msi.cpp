@@ -15,14 +15,9 @@ constexpr std::uint32_t msi_frequency_hz_lut[] = { 100_kHz, 200_kHz, 400_kHz, 80
                                                    4_MHz,   8_MHz,   16_MHz,  24_MHz,  32_MHz, 48_MHz };
 }
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace sources {
+namespace xmcu::soc::st::arm::m0::l0::rm0451::sources {
 using namespace xmcu;
-using namespace xmcu::soc::m0::l0::rm0451::utils;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::utils;
 
 void msi::enable(Frequency a_frequency)
 {
@@ -87,9 +82,4 @@ std::uint32_t msi::get_frequency_Hz()
 
     return 0u;
 }
-} // namespace sources
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::sources

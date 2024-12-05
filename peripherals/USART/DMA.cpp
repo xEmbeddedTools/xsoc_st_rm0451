@@ -7,15 +7,15 @@
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/USART/DMA.hpp>
 
 // hkm
-#include <xmcu/soc/ST/arm/m0/nvic.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/tick_counter.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m0/nvic.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m0::l0::rm0451;
-using namespace xmcu::soc::m0::l0::rm0451::utils;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::utils;
 
 constexpr IRQn_Type channel_to_irqn(DMA<>::Channel channel)
 {
@@ -137,12 +137,8 @@ std::uint32_t get_interrupt_enable_flags(DMA<>::Event_flag a_event_flag)
 
 } // namespace
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-using namespace xmcu::soc::m0::l0::rm0451::peripherals;
+namespace xmcu::soc::st::arm::m0::l0::rm0451 {
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals;
 
 void DMA<USART>::Receiver::enable(DMA<>::Channel a_channel)
 {
@@ -807,9 +803,4 @@ void DMA<LPUART>::Transmitter::Interrupt::stop()
 {
     bit::flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_EN);
 }
-
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451

@@ -19,12 +19,7 @@
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals {
 class LPTIM : private xmcu::Non_copyable
 {
 public:
@@ -159,18 +154,9 @@ private:
     friend void LPTIM_interrupt_handler(LPTIM* a_p_this);
 };
 void LPTIM_interrupt_handler(LPTIM* a_p_this);
-} // namespace peripherals
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
+namespace xmcu::soc::st::arm::m0::l0::rm0451 {
 template<std::uint32_t id> class rcc<peripherals::LPTIM, id> : private xmcu::non_constructible
 {
 public:
@@ -181,21 +167,15 @@ public:
 template<> template<> void rcc<peripherals::LPTIM, 1>::enable<rcc<system::mcu<1u>>::pclk<1u>>(bool a_enable_in_lp);
 template<> template<> void rcc<peripherals::LPTIM, 1>::enable<sources::hsi16>(bool a_enable_in_lp);
 
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451
 
-namespace xmcu {
-namespace soc {
-template<> class peripheral<m0::l0::rm0451::peripherals::LPTIM, 1u> : private non_constructible
+namespace xmcu::soc {
+template<> class peripheral<st::arm::m0::l0::rm0451::peripherals::LPTIM, 1u> : private non_constructible
 {
 public:
-    static m0::l0::rm0451::peripherals::LPTIM create()
+    static st::arm::m0::l0::rm0451::peripherals::LPTIM create()
     {
-        return m0::l0::rm0451::peripherals::LPTIM(0u, LPTIM1, IRQn_Type::LPTIM1_IRQn);
+        return st::arm::m0::l0::rm0451::peripherals::LPTIM(0u, LPTIM1, IRQn_Type::LPTIM1_IRQn);
     }
 };
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc

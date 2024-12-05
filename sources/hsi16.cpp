@@ -11,14 +11,9 @@
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/tick_counter.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/wait_until.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace sources {
+namespace xmcu::soc::st::arm::m0::l0::rm0451::sources {
 using namespace xmcu;
-using namespace xmcu::soc::m0::l0::rm0451::utils;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::utils;
 
 void hsi16::enable()
 {
@@ -46,9 +41,4 @@ bool hsi16::disable(Milliseconds a_timeout)
     return wait_until::all_bits_are_cleared(
         RCC->CR, RCC_CR_HSIRDY, a_timeout.get() - (tick_counter<Milliseconds>::get() - start));
 }
-} // namespace sources
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::sources

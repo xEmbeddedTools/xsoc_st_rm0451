@@ -26,12 +26,7 @@
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals {
 class USART : private Non_copyable
 {
 public:
@@ -497,19 +492,9 @@ constexpr USART::Event_flag operator|=(USART::Event_flag& a_f1, USART::Event_fla
     return a_f1;
 }
 
-} // namespace peripherals
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-
+namespace xmcu::soc::st::arm::m0::l0::rm0451 {
 template<std::uint32_t id> class rcc<peripherals::USART, id> : private non_constructible
 {
 public:
@@ -547,21 +532,15 @@ inline void peripherals::GPIO::Alternate_function::enable<peripherals::USART, 2>
     this->enable(a_id, a_config, alternate_function_index, a_p_pin);
 }
 
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451
 
-namespace xmcu {
-namespace soc {
-template<> class peripheral<m0::l0::rm0451::peripherals::USART, 2u> : private non_constructible
+namespace xmcu::soc {
+template<> class peripheral<st::arm::m0::l0::rm0451::peripherals::USART, 2u> : private non_constructible
 {
 public:
-    static m0::l0::rm0451::peripherals::USART create()
+    static st::arm::m0::l0::rm0451::peripherals::USART create()
     {
-        return m0::l0::rm0451::peripherals::USART(0u, USART2, IRQn_Type::USART2_IRQn);
+        return st::arm::m0::l0::rm0451::peripherals::USART(0u, USART2, IRQn_Type::USART2_IRQn);
     }
 };
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc

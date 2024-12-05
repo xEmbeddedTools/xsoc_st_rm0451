@@ -15,7 +15,7 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m0::l0::rm0451::peripherals;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals;
 
 void clear_FLASH_SR_errors()
 {
@@ -40,14 +40,9 @@ internal_flash::Status_flag get_status_flag_from_FLASH_SR()
 }
 } // namespace
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m0::l0::rm0451::system;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::system;
 using namespace utils;
 
 void internal_flash::unlocker::unlock()
@@ -351,10 +346,4 @@ internal_flash::polling::erase_page(Limited<std::uint32_t, 0u, s::pages_count - 
     }
     return { Status_flag::locked, 0u };
 }
-
-} // namespace peripherals
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals

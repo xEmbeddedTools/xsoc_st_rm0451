@@ -26,13 +26,7 @@
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
-namespace peripherals {
-
+namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals {
 class ADC : private Non_copyable
 {
 public:
@@ -265,19 +259,9 @@ template<> void ADC::Interrupt::read_start<ADC::Mode::single>(const Callback& a_
 template<> void ADC::Interrupt::read_start<ADC::Mode::continuous>(const Callback& a_callback);
 template<>
 void ADC::Interrupt::read_start<ADC::Mode::discontinuous>(const Callback& a_callback, std::size_t a_group_size);
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals
 
-} // namespace peripherals
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
-
-namespace xmcu {
-namespace soc {
-namespace m0 {
-namespace l0 {
-namespace rm0451 {
+namespace xmcu::soc::st::arm::m0::l0::rm0451 {
 template<> class rcc<peripherals::ADC> : private non_constructible
 {
 public:
@@ -330,21 +314,15 @@ public:
 template<> void rcc<peripherals::ADC>::async::enable<rcc<system::mcu<1u>>>(Prescaler a_prescaler, bool a_enable_in_lp);
 template<>
 void rcc<peripherals::ADC>::sync::enable<rcc<system::mcu<1u>>::hclk<1u>>(Prescaler a_prescaler, bool a_enable_in_lp);
-} // namespace rm0451
-} // namespace l0
-} // namespace m0
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m0::l0::rm0451
 
-namespace xmcu {
-namespace soc {
-template<> class peripheral<m0::l0::rm0451::peripherals::ADC, 1u> : private non_constructible
+namespace xmcu::soc {
+template<> class peripheral<st::arm::m0::l0::rm0451::peripherals::ADC, 1u> : private non_constructible
 {
 public:
-    static m0::l0::rm0451::peripherals::ADC create()
+    static st::arm::m0::l0::rm0451::peripherals::ADC create()
     {
-        return m0::l0::rm0451::peripherals::ADC(0U, ADC1, IRQn_Type::ADC1_IRQn);
+        return st::arm::m0::l0::rm0451::peripherals::ADC(0U, ADC1, IRQn_Type::ADC1_IRQn);
     }
 };
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc
