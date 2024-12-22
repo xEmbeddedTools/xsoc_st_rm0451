@@ -8,10 +8,13 @@
 // externals
 #include <stm32l0xx.h>
 
-// hkm
+// soc
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/clocks/sysclk.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/USART/USART.hpp>
+
+// xmcu
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/Not_null.hpp>
-#include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/USART/USART.hpp>
 #include <xmcu/various.hpp>
 
 namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals {
@@ -401,9 +404,9 @@ public:
     template<typename Source_t> static void enable(bool a_enable_in_lp) = delete;
     static void disable() = delete;
 };
-template<> template<> void rcc<peripherals::LPUART, 1u>::enable<rcc<system::mcu<1u>>::pclk<1u>>(bool a_enable_in_lp);
-template<> template<> void rcc<peripherals::LPUART, 1u>::enable<rcc<system::mcu<1u>>>(bool a_enable_in_lp);
-template<> template<> void rcc<peripherals::LPUART, 1u>::enable<sources::hsi16>(bool a_enable_in_lp);
+template<> template<> void rcc<peripherals::LPUART, 1u>::enable<clocks::pclk<1u>>(bool a_enable_in_lp);
+template<> template<> void rcc<peripherals::LPUART, 1u>::enable<clocks::sysclk<1u>>(bool a_enable_in_lp);
+template<> template<> void rcc<peripherals::LPUART, 1u>::enable<clocks::sources::hsi16>(bool a_enable_in_lp);
 // template<> template<> void rcc<peripherals::LPUART, 1u>::enable<sources::lse>(bool a_enable_in_lp);
 template<> void rcc<peripherals::LPUART, 1u>::disable();
 

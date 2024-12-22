@@ -154,10 +154,11 @@ void LPTIM::Tick_counter::Interrupt::unregister_callback()
 
 namespace xmcu::soc::st::arm::m0::l0::rm0451 {
 using namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals;
-using namespace xmcu::soc::st::arm::m0::l0::rm0451::sources;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::clocks;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::clocks::sources;
 using namespace xmcu::soc::st::arm::m0::l0::rm0451::system;
 
-template<> template<> void rcc<LPTIM, 1>::enable<rcc<mcu<1u>>::pclk<1u>>(bool a_enable_in_lp)
+template<> template<> void rcc<LPTIM, 1>::enable<pclk<1u>>(bool a_enable_in_lp)
 {
     bit::flag::clear(&(RCC->CCIPR), RCC_CCIPR_LPTIM1SEL);
     bit::flag::set(&(RCC->APB1ENR), RCC_APB1ENR_LPTIM1EN);

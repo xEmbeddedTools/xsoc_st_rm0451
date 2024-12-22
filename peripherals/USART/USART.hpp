@@ -17,9 +17,10 @@
 #include <xmcu/Not_null.hpp>
 #include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/clocks/pclk.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/clocks/sources/hsi16.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/GPIO/GPIO.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/rcc.hpp>
-#include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/hsi16.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/system/mcu/mcu.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/tick_counter.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/wait_until.hpp>
@@ -501,9 +502,9 @@ public:
     template<typename Source_t> static void enable(bool a_enable_in_lp) = delete;
     static void disable() = delete;
 };
-template<> template<> void rcc<peripherals::USART, 2u>::enable<rcc<system::mcu<1u>>::pclk<2u>>(bool a_enable_in_lp);
+template<> template<> void rcc<peripherals::USART, 2u>::enable<clocks::pclk<2u>>(bool a_enable_in_lp);
 template<> template<> void rcc<peripherals::USART, 2u>::enable<rcc<system::mcu<1u>>>(bool a_enable_in_lp);
-template<> template<> void rcc<peripherals::USART, 2u>::enable<sources::hsi16>(bool a_enable_in_lp);
+template<> template<> void rcc<peripherals::USART, 2u>::enable<clocks::sources::hsi16>(bool a_enable_in_lp);
 // template<> template<> void rcc<peripherals::USART, 2u>::enable<sources::lse>(bool a_enable_in_lp);
 template<> void rcc<peripherals::USART, 2u>::disable();
 

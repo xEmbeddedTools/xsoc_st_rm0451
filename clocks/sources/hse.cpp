@@ -4,7 +4,7 @@
  */
 
 // this
-#include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/hse.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/clocks/sources/hse.hpp>
 
 // xmcu
 #include <xmcu/Duration.hpp>
@@ -16,7 +16,7 @@ namespace {
 constexpr std::uint32_t hse_control_unlock_key = 0xCAFECAFEu;
 }
 
-namespace xmcu::soc::st::arm::m0::l0::rm0451::sources {
+namespace xmcu::soc::st::arm::m0::l0::rm0451::clocks::sources {
 using namespace xmcu;
 using namespace xmcu::soc::st::arm::m0::l0::rm0451::utils;
 

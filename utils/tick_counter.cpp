@@ -6,13 +6,16 @@
 // this
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/tick_counter.hpp>
 
+// soc
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/clocks/hclk.hpp>
+
 // debug
 #include <xmcu/assertion.hpp>
 
 namespace xmcu::soc::st::arm::m0::l0::rm0451::utils {
 
 // using namespace common;
-using namespace xmcu::soc::st::arm::m0::l0::rm0451::sources;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::clocks;
 using namespace xmcu::soc::st::arm::m0::l0::rm0451::system;
 
 tick_counter<Milliseconds>::Callback tick_counter<Milliseconds>::callback;
@@ -56,7 +59,7 @@ template<> void tick_counter<Milliseconds>::enable<Systick>(Systick* a_p_timer,
                                                             const IRQ_config& a_irq_config,
                                                             std::uint64_t a_start_cnt)
 {
-    ticks_per_period = (rcc<mcu<1u>>::hclk<1u>::get_frequency_Hz() / 1000u);
+    ticks_per_period = (hclk<1u>::get_frequency_Hz() / 1000u);
     a_p_timer->enable(ticks_per_period - 1, Systick::Prescaler::_1);
     a_p_timer->interrupt.enable(a_irq_config);
     a_p_timer->interrupt.register_callback({ tick_counter::update, nullptr });

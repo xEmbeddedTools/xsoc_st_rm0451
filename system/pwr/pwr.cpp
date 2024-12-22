@@ -7,6 +7,7 @@
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/system/pwr/pwr.hpp>
 
 // xmcu
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/clocks/sysclk.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/internal_flash/internal_flash.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/rcc.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/system/mcu/mcu.hpp>
@@ -14,7 +15,8 @@
 
 namespace xmcu::soc::st::arm::m0::l0::rm0451::system {
 using namespace xmcu;
-using namespace xmcu::soc::st::arm::m0::l0::rm0451::sources;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::clocks;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::clocks::sources;
 using namespace xmcu::soc::st::arm::m0::l0::rm0451::system;
 using namespace xmcu::soc::st::arm::m0::l0::rm0451::utils;
 using namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals;
@@ -47,11 +49,11 @@ void pwr<mcu<1u>>::stop_mode::exit()
 {
     if (0 == bit::flag::is(RCC->CFGR, RCC_CFGR_STOPWUCK))
     {
-        rcc<mcu<1u>>::set_system_clock_source<msi>();
+        sysclk<1u>::set_source<msi>();
     }
     else
     {
-        rcc<mcu<1u>>::set_system_clock_source<hsi16>();
+        sysclk<1u>::set_source<hsi16>();
     }
 }
 

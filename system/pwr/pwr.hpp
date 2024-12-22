@@ -14,8 +14,9 @@
 // xmcu
 #include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
-#include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/msi.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/clocks/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/clocks/sources/msi.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/rcc.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/system/mcu/mcu.hpp>
 
 namespace xmcu::soc::st::arm::m0::l0::rm0451::system {

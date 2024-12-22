@@ -13,8 +13,9 @@
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/clocks/pclk.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/clocks/sources/hsi16.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/rcc.hpp>
-#include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/hsi16.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
@@ -164,8 +165,8 @@ public:
     static void disable() = delete;
 };
 
-template<> template<> void rcc<peripherals::LPTIM, 1>::enable<rcc<system::mcu<1u>>::pclk<1u>>(bool a_enable_in_lp);
-template<> template<> void rcc<peripherals::LPTIM, 1>::enable<sources::hsi16>(bool a_enable_in_lp);
+template<> template<> void rcc<peripherals::LPTIM, 1>::enable<clocks::pclk<1u>>(bool a_enable_in_lp);
+template<> template<> void rcc<peripherals::LPTIM, 1>::enable<clocks::sources::hsi16>(bool a_enable_in_lp);
 
 } // namespace xmcu::soc::st::arm::m0::l0::rm0451
 
