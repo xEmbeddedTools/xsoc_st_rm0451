@@ -21,7 +21,7 @@
 #include <cstdlib>
 
 namespace xmcu::soc::st::arm::m0::l0::rm0451::clocks {
-template<std::size_t id> struct hclk : private non_constructible
+template<std::size_t id> class hclk : private non_constructible
 {
 private:
     static constexpr std::uint32_t dividers[] = { 1u, 3u, 5u, 1u,  1u,  6u,   10u,  32u,

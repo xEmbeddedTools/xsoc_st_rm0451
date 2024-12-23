@@ -17,7 +17,7 @@
 #include <cstdlib>
 
 namespace xmcu::soc::st::arm::m0::l0::rm0451::clocks {
-template<std::size_t id> struct pclk : private non_constructible
+template<std::size_t id> class pclk : private non_constructible
 {
 private:
     constexpr static std::uint32_t dividers[] = { 2u, 4u, 8u, 16u };
@@ -26,7 +26,7 @@ private:
     friend class pclk<2u>;
 };
 
-template<> struct pclk<1u> : private non_constructible
+template<> class pclk<1u> : private non_constructible
 {
 public:
     enum class Prescaler : std::uint32_t
@@ -42,7 +42,7 @@ public:
     static Prescaler get_Prescaler();
     static std::uint32_t get_frequency_Hz();
 };
-template<> struct pclk<2u> : private non_constructible
+template<> class pclk<2u> : private non_constructible
 {
 public:
     enum class Prescaler : std::uint32_t
