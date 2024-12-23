@@ -19,9 +19,9 @@
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/peripherals/GPIO/gpio_ll.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/rcc.hpp>
-#include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/hse.hpp>
-#include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m0/l0/rm0451/sources/msi.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/clocks/sources/hse.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/clocks/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/clocks/sources/msi.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
@@ -481,9 +481,9 @@ private:
     template<typename Periph_t, std::uint32_t id> friend class xmcu::soc::peripheral;
 };
 
-template<> void GPIO::mco::enable<sources::hse>(Divider a_divider);
-template<> void GPIO::mco::enable<sources::hsi16>(Divider a_divider);
-template<> void GPIO::mco::enable<sources::msi>(Divider a_divider);
+template<> void GPIO::mco::enable<clocks::sources::hse>(Divider a_divider);
+template<> void GPIO::mco::enable<clocks::sources::hsi16>(Divider a_divider);
+template<> void GPIO::mco::enable<clocks::sources::msi>(Divider a_divider);
 template<> void GPIO::mco::enable<rcc<system::mcu<1>>>(Divider a_divider);
 
 constexpr GPIO::Interrupt::Trigger_flag operator|(GPIO::Interrupt::Trigger_flag a_f1,

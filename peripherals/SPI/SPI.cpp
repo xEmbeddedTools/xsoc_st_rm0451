@@ -99,7 +99,7 @@ SPI::Polling::Result SPI::Polling::receive(Not_null<std::uint8_t*> a_p_data, std
 
 namespace xmcu::soc::st::arm::m0::l0::rm0451 {
 using namespace xmcu;
-using namespace xmcu::soc::st::arm::m0::l0::rm0451::sources;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::clocks::sources;
 
 template<> template<> void rcc<peripherals::SPI, 1u>::enable<hsi16>(bool a_enable_in_lp)
 {

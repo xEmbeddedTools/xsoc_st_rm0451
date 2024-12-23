@@ -394,7 +394,7 @@ void ADC::Interrupt::read_stop()
 
 namespace xmcu::soc::st::arm::m0::l0::rm0451 {
 using namespace xmcu::soc::st::arm::m0::l0::rm0451::peripherals;
-using namespace xmcu::soc::st::arm::m0::l0::rm0451::sources;
+using namespace xmcu::soc::st::arm::m0::l0::rm0451::clocks;
 using namespace xmcu::soc::st::arm::m0::l0::rm0451::system;
 
 template<> void rcc<ADC>::async::enable<rcc<mcu<1u>>>(Prescaler a_prescaler, bool a_enable_in_lp)
@@ -404,7 +404,7 @@ template<> void rcc<ADC>::async::enable<rcc<mcu<1u>>>(Prescaler a_prescaler, boo
     bit::flag::set(&ADC1_COMMON->CCR, ADC_CCR_PRESC_Msk, static_cast<std::uint32_t>(a_prescaler));
 }
 
-template<> void rcc<ADC>::sync::enable<rcc<mcu<1u>>::hclk<1u>>(Prescaler a_prescaler, bool a_enable_in_lp)
+template<> void rcc<ADC>::sync::enable<hclk<1u>>(Prescaler a_prescaler, bool a_enable_in_lp)
 {
     bit::flag::set(&RCC->APB2ENR, RCC_APB2ENR_ADCEN);
     bit::flag::clear(&ADC1_COMMON->CCR, ADC_CCR_PRESC_Msk);

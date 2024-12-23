@@ -14,13 +14,15 @@
 // externals
 #include <stm32l0xx.h>
 
-// hkm
+// xmcu
 #include <xmcu/Duration.hpp>
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/Not_null.hpp>
 #include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/clocks/hclk.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/clocks/sysclk.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/rcc.hpp>
 #include <xmcu/soc/ST/arm/m0/l0/rm0451/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
@@ -311,9 +313,8 @@ public:
     };
 };
 
-template<> void rcc<peripherals::ADC>::async::enable<rcc<system::mcu<1u>>>(Prescaler a_prescaler, bool a_enable_in_lp);
-template<>
-void rcc<peripherals::ADC>::sync::enable<rcc<system::mcu<1u>>::hclk<1u>>(Prescaler a_prescaler, bool a_enable_in_lp);
+template<> void rcc<peripherals::ADC>::async::enable<clocks::sysclk<1u>>(Prescaler a_prescaler, bool a_enable_in_lp);
+template<> void rcc<peripherals::ADC>::sync::enable<clocks::hclk<1u>>(Prescaler a_prescaler, bool a_enable_in_lp);
 } // namespace xmcu::soc::st::arm::m0::l0::rm0451
 
 namespace xmcu::soc {
