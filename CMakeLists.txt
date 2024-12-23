@@ -1,0 +1,2 @@
+cmake_minimum_required(VERSION 3.19.0)
+file(GLOB_RECURSE SOC_SRC "${CMAKE_CURRENT_LIST_DIR}/*.cpp" "${CMAKE_CURRENT_LIST_DIR}/*.c" "${CMAKE_CURRENT_LIST_DIR}/*.asm")
