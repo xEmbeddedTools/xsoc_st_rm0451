@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.19.0)
-file(GLOB_RECURSE XMCU_SOC_SRC "${CMAKE_CURRENT_LIST_DIR}/*.cpp" "${CMAKE_CURRENT_LIST_DIR}/*.c" "${CMAKE_CURRENT_LIST_DIR}/*.asm")
 
 if (XMCU_SOC_MODEL STREQUAL "XMCU_SOC_MODEL_STM32L010F4P6")
     add_compile_definitions("XMCU_SOC_MODEL_STM32L010F4P6" "STM32L010x4")
+    file(GLOB_RECURSE XMCU_SOC_SRC "${CMAKE_CURRENT_LIST_DIR}/rm0451/*.cpp" "${CMAKE_CURRENT_LIST_DIR}/rm0451/*.c" "${CMAKE_CURRENT_LIST_DIR}/*.asm")
 endif()
 
 add_compile_options(-mcpu=cortex-m0plus)
