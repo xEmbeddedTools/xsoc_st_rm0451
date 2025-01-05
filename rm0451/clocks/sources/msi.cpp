@@ -4,12 +4,21 @@
  */
 
 // this
+<<<<<<<< HEAD:rm0451/clocks/sources/msi.cpp
 #include <rm0451/clocks/sources/msi.hpp>
 
 // xmcu
 #include <rm0451/utils/tick_counter.hpp>
 #include <rm0451/utils/wait_until.hpp>
 #include <xmcu/Frequency.hpp>
+========
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/clocks/sources/msi.hpp>
+
+// xmcu
+#include <xmcu/Frequency.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/utils/wait_until.hpp>
+>>>>>>>> main:clocks/sources/msi.cpp
 
 namespace {
 constexpr std::uint32_t msi_frequency_hz_lut[] = { 100_kHz, 200_kHz, 400_kHz, 800_kHz, 1_MHz,  2_MHz,

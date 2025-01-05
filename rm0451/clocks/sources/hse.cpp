@@ -4,7 +4,11 @@
  */
 
 // this
+<<<<<<<< HEAD:rm0451/clocks/sources/hse.cpp
 #include <rm0451/clocks/sources/hse.hpp>
+========
+#include <xmcu/soc/ST/arm/m0/l0/rm0451/clocks/sources/hse.hpp>
+>>>>>>>> main:clocks/sources/hse.cpp
 
 // xmcu
 #include <rm0451/utils/tick_counter.hpp>
