@@ -9,9 +9,6 @@
 // soc
 #include <rm0451/clocks/hclk.hpp>
 
-// soc
-#include <xmcu/soc/ST/arm/m0/l0/rm0451/clocks/hclk.hpp>
-
 // debug
 #include <xmcu/assertion.hpp>
 
