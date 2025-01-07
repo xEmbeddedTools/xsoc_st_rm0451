@@ -69,6 +69,10 @@ inline hclk<1u>::Prescaler hclk<1u>::get_Prescaler()
 }
 inline std::uint32_t hclk<1u>::get_frequency_Hz()
 {
-    return SystemCoreClock / hclk<0u>::dividers[bit::flag::get(RCC->CFGR, RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos];
+    std::uint32_t index = bit::flag::get(RCC->CFGR, RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos;
+
+    hkm_assert(index <= bit::flag::get(RCC->CFGR, RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos);
+
+    return SystemCoreClock / hclk<0u>::dividers[index];
 }
 } // namespace xmcu::soc::st::arm::m0::l0::rm0451::clocks

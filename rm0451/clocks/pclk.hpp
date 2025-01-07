@@ -8,6 +8,7 @@
 // xmcu
 #include <xmcu/Duration.hpp>
 #include <xmcu/non_constructible.hpp>
+#include <xmcu/various.hpp>
 
 // soc
 #include <rm0451/utils/wait_until.hpp>
@@ -78,8 +79,8 @@ inline bool pclk<1u>::set(Prescaler a_prescaler, Milliseconds a_timeout)
 inline std::uint32_t pclk<1u>::get_frequency_Hz()
 {
     std::uint32_t index = bit::flag::get(RCC->CFGR, RCC_CFGR_PPRE1) >> RCC_CFGR_PPRE1_Pos;
-
-    if (index >= 4)
+    
+    if (index >= xmcu::various::countof(pclk<0u>::dividers))
     {
         return SystemCoreClock / pclk<0u>::dividers[index - 4];
     }
@@ -109,7 +110,7 @@ inline std::uint32_t pclk<2u>::get_frequency_Hz()
 {
     std::uint32_t index = bit::flag::get(RCC->CFGR, RCC_CFGR_PPRE2) >> RCC_CFGR_PPRE2_Pos;
 
-    if (index >= 4)
+    if (index >= xmcu::various::countof(pclk<0u>::dividers))
     {
         return SystemCoreClock / pclk<0u>::dividers[index - 4];
     }
