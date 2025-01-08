@@ -12,9 +12,9 @@ if (XMCU_SOC_MODEL STREQUAL "XMCU_SOC_MODEL_STM32L010F4P6")
             "${CMAKE_CURRENT_LIST_DIR}/rm0451/*.asm" 
             "${CMAKE_CURRENT_LIST_DIR}/rm0451/*.hpp"
             "${CMAKE_CURRENT_LIST_DIR}/rm0451/*.h"
-            "${XMCU_PATH}/soc/ST/arm/CMSIS/Device/ST/STM32L0xx/Source/Templates/gcc/startup_stm32l010x4.s"
-            "${XMCU_PATH}/soc/ST/arm/CMSIS/Device/ST/STM32L0xx/Source/Templates/system_stm32l0xx.c")
-    set(XMCU_LD_SCRIPT "${XMCU_PATH}/soc/ST/arm/CMSIS/Device/ST/STM32L0xx/Source/Templates/gcc/linker/STM32L010F4Px_FLASH.ld")
+            "${CMAKE_CURRENT_LIST_DIR}/CMSIS/Device/ST/STM32L0xx/Source/Templates/gcc/startup_stm32l010x4.s"
+            "${CMAKE_CURRENT_LIST_DIR}/CMSIS/Device/ST/STM32L0xx/Source/Templates/system_stm32l0xx.c")
+    set(XMCU_LD_SCRIPT "${CMAKE_CURRENT_LIST_DIR}/CMSIS/Device/ST/STM32L0xx/Source/Templates/gcc/linker/STM32L010F4Px_FLASH.ld")
     add_library(XMCU_SOC OBJECT ${XMCU_SOC_SRC})
     add_compile_definitions(XMCU_SOC PUBLIC "XMCU_SOC_MODEL_STM32L010F4P6" "STM32L010x4")
 endif()
@@ -31,4 +31,5 @@ endif()
 include_directories(XMCU_SOC PUBLIC
                     ${XMCU_PATH}
                     ${CMAKE_CURRENT_LIST_DIR}
-                    ${XMCU_PATH}/soc/ST/arm/CMSIS/Include ${XMCU_PATH}/soc/ST/arm/CMSIS/Device/ST/STM32L0xx/Include)
+                    "${XMCU_PATH}/soc/ST/arm/CMSIS/Include"
+                    "${CMAKE_CURRENT_LIST_DIR}/CMSIS/Device/ST/STM32L0xx/Include")
